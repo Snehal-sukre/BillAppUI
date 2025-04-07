@@ -11,13 +11,12 @@ const images = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
 const Gallery = () => {
   const [current, setCurrent] = useState(0);
 
-  // Autoplay logic
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 3000); // Change image every 3 seconds
+    }, 3000); 
 
-    return () => clearInterval(interval); // Clear interval on unmount
+    return () => clearInterval(interval); 
   }, []);
 
   const nextSlide = () => {
