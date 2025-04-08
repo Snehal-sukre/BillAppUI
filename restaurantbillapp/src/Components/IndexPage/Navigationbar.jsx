@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import './index.css';
 
 const Navigationbar = () => {
@@ -27,7 +28,10 @@ const Navigationbar = () => {
         <li><a href="#chefs" onClick={() => setMenuOpen(false)}>Chefs</a></li>
         <li><a href="#gallery" onClick={() => setMenuOpen(false)}>Gallery</a></li>
         <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
-        <li><a href="/login" className="login-btn" onClick={() => setMenuOpen(false)}>Login</a></li>
+        <li>
+          <Link to="/login" className="login-btn" onClick={() => setMenuOpen(false)}>
+          Login </Link>
+          </li>
       </ul>
     </nav>
   );

@@ -10,9 +10,9 @@ const About = () => {
         </div>
         <div className="about-content">
           <h2>About Us</h2>
-          <h3>Welcome to Orchid Banquet</h3>
+          <h3>Welcome to Foodie's Kitchen</h3>
           <p>
-            Since 2018, Orchid Banquet in Karve Nagar, Pune has been a trusted name in event hosting. 
+            Since 2018, Foodie's Kitchen in Karve Nagar, Pune has been a trusted name in event hosting. 
             Known for exceptional service and customer satisfaction, our venue is ideal for weddings, 
             parties, and special events. Conveniently located at Warje Road, Opposite Kakade City, we’re easy to reach and ready to welcome you.
           </p>
