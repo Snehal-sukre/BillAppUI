@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import gallery1 from '../../assets/gallery1.jpg';
 import gallery2 from '../../assets/gallery2.jpg';
 import gallery3 from '../../assets/gallery3.jpg';
@@ -9,44 +9,49 @@ import gallery6 from '../../assets/gallery6.jpg';
 const images = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
 
 const Gallery = () => {
-  const [current, setCurrent] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const visibleCount = 3;
 
+  // Autoplay
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 3000); 
-
-    return () => clearInterval(interval); 
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  // Get current visible images
+  const getVisibleImages = () => {
+    const visibleImages = [];
+    for (let i = 0; i < visibleCount; i++) {
+      visibleImages.push(images[(currentIndex + i) % images.length]);
+    }
+    return visibleImages;
   };
 
   return (
-    <section className="gallery-section" id="gallery">
-      <h2 className="section-title">Our <span>Gallery</span></h2>
-      <p className="gallery-subtitle">A peek into our ambience and dishes</p>
+    <section className="gallery-carousel-section" id="gallery">
+      <h3 className="gallery-heading">GALLERY</h3>
+      <h2 className="gallery-subheading">Check <span>Our Gallery</span></h2>
 
-      <div className="slider-container">
-        <button className="nav-button left" onClick={prevSlide}>&#10094;</button>
-        <img src={images[current]} alt={`Gallery ${current + 1}`} className="slide-image" />
-        <button className="nav-button right" onClick={nextSlide}>&#10095;</button>
+      <div className="carousel-container">
+        {getVisibleImages().map((img, idx) => (
+          <div
+            key={idx}
+            className={`carousel-image-wrapper ${idx === 1 ? 'active' : ''}`} // center one is active
+          >
+            <img src={img} alt={`Gallery ${idx}`} className="carousel-image" />
+          </div>
+        ))}
       </div>
 
-      <div className="thumbnail-row">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`Thumbnail ${index + 1}`}
-            className={`thumbnail ${current === index ? 'active' : ''}`}
-            onClick={() => setCurrent(index)}
-          />
+      <div className="dot-container">
+        {images.map((_, idx) => (
+          <span
+            key={idx}
+            className={`dot ${idx === currentIndex ? 'active-dot' : ''}`}
+            onClick={() => setCurrentIndex(idx)}
+          ></span>
         ))}
       </div>
     </section>
