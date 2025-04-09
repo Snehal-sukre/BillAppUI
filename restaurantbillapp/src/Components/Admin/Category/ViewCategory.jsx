@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
 import './Category.css'; // Make sure to use new file name to avoid conflicts
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
+import CategoryService from './CategoryService.js';
 
 const ViewCategory = () => {
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  let [errorMsg, setErrorMsg]=useState({
+    "message":"",
+    "statusCode":0
+  });
 
   useEffect(() => {
-    setCategories([
-      { id: 1, name: "Breakfast" },
-      { id: 2, name: "Snacks" },
-      { id: 3, name: "Desserts" },
-      { id: 4, name: "Drinks" },
-      { id: 5, name: "Lunch" },
-    ]);
+    const getCategory=()=>
+    {
+        let promise=CategoryService.getCategory();
+        promise.then((res)=>
+        {
+            setCategories(res.data);
+        });
+        promise.catch((err)=>
+        {
+            setErrorMsg(err.response.data);
+        });
+    }
+    getCategory();
   }, []);
 
   const handleDelete = (id) => {

@@ -1,4 +1,4 @@
-/* Wrapper to center the Add Category form */
+
 .add-category-wrapper {
     position: absolute;
     left: 220px;
@@ -11,11 +11,10 @@
     background-color: transparent;
 }
 
-/* Main form container (used for both Add and View) */
 .form-container {
     width: 100%;
     max-width: 700px;
-    padding: 20px;
+    padding: 50px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: white;
@@ -166,7 +165,7 @@ input:focus {
   }
   
   .view-category-table th {
-    background-color: #f5f5f5;
+    background-color: #ff3c00;
     font-weight: bold;
     color: #444;
   }

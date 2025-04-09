@@ -1,11 +1,10 @@
-/* Main content with sidebar awareness */
+
 .main-content {
-    margin-left: 250px; /* Same as your sidebar width */
+    margin-left: 250px; 
     padding: 30px 40px;
     box-sizing: border-box;
   }
   
-  /* Dashboard Headings */
   .dashboard-title {
     font-size: 24px;
     font-weight: bold;

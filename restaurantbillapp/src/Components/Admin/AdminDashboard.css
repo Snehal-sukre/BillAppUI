@@ -11,7 +11,10 @@
   z-index: 1000;
   transition: all 0.3s ease-in-out;
 }
-
+ul li
+{
+  list-style-type: none;
+}
 .sidebar-menu {
   list-style: none;
   padding: 0;
