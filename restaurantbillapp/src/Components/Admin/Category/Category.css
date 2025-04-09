@@ -1,0 +1,241 @@
+/* Wrapper to center the Add Category form */
+.add-category-wrapper {
+    position: absolute;
+    left: 220px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+/* Main form container (used for both Add and View) */
+.form-container {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Add Category form structure */
+.category-form {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #333;
+}
+
+/* Form fields */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #ff3c00;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(255, 60, 0, 0.5);
+}
+
+.submit-btn {
+    background-color: #ff3c00;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #e03100;
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff3c00;
+}
+
+/* Root wrapper for ViewCategory */
+.view-category-wrapper {
+    position: absolute;
+    top: 0;
+    left: 220px;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Search bar placed outside the form */
+  .view-category-searchbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .view-category-searchbar input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s ease;
+  }
+  
+  .view-category-searchbar input:focus {
+    border-color: #ff3c00;
+    box-shadow: 0 0 5px rgba(255, 60, 0, 0.4);
+    outline: none;
+  }
+  
+  .view-category-searchbar .search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 18px;
+    color: #888;
+    pointer-events: none;
+  }
+  
+  /* Table container (form wrapper reused here) */
+  .view-category-table-wrapper {
+    width: 100%;
+    max-width: 850px; 
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #ccc;
+  }
+  
+  /* Heading */
+  .view-category-table-wrapper h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Table styles */
+  .view-category-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .view-category-table th,
+  .view-category-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+  
+  .view-category-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .view-category-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Action Buttons */
+  .view-category-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 5px;
+    padding: 6px;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  
+  .view-category-edit-btn {
+    color: green;
+  }
+  
+  .view-category-edit-btn:hover {
+    background-color: #e7f0ff;
+  }
+  
+  .view-category-delete-btn {
+    color: #ff3c00;
+  }
+  
+  .view-category-delete-btn:hover {
+    background-color: #ffe7e7;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .view-category-wrapper {
+      left: 0;
+      padding: 20px;
+    }
+  
+    .view-category-searchbar input {
+      font-size: 14px;
+      padding: 8px 12px 8px 38px;
+    }
+  
+    .view-category-icon-btn {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .view-category-table-wrapper {
+      padding: 15px;
+    }
+  
+    .view-category-table-wrapper h2 {
+      font-size: 18px;
+    }
+  
+    .view-category-searchbar input {
+      font-size: 14px;
+    }
+  
+    .view-category-icon-btn {
+      font-size: 15px;
+      padding: 4px;
+    }
+  }
+  
