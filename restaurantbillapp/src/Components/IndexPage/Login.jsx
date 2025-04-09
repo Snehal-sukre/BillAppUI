@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     if (username === 'admin' && password === 'admin123') {
       setErrorMessage('');
-      navigate('/adminlogin');
+      navigate('/admin');
     } else {
       setErrorMessage('Invalid username or password.');
     }

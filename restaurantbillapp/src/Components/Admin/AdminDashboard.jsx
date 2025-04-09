@@ -1,3 +1,4 @@
+// AdminDashboard.jsx
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
@@ -7,6 +8,7 @@ import {
   FaUserTie,
   FaFileInvoiceDollar,
   FaChartBar,
+  FaChair,
 } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdFastfood } from "react-icons/md";
@@ -17,6 +19,7 @@ const AdminDashboard = () => {
     category: false,
     menu: false,
     staff: false,
+    dinning: false,
     orders: false,
   });
 
@@ -26,9 +29,8 @@ const AdminDashboard = () => {
       menu: false,
       staff: false,
       orders: false,
-      [key]: !dropdownOpen[key], // toggle only selected
+      [key]: !dropdownOpen[key],
     });
-  
   };
 
   return (
@@ -111,6 +113,28 @@ const AdminDashboard = () => {
             </ul>
           )}
         </li>
+
+        {/* Dining Table Dropdown */}
+<li>
+  <div className="menu-item" onClick={() => toggleDropdown("dining")}>
+    <FaChair className="menu-icon" />
+    Dining Table
+  </div>
+  {dropdownOpen.dining && (
+    <ul className="submenu">
+      <li>
+        <NavLink to="/admin/addtable" className="submenu-link">
+          Add Dining Table
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/viewtable" className="submenu-link">
+          View Dining Table
+        </NavLink>
+      </li>
+    </ul>
+  )}
+</li>
 
         {/* Orders Dropdown */}
         <li>
