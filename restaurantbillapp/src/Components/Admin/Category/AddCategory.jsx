@@ -1,24 +1,42 @@
 import React, {useState} from "react";
 import './Category.css';
+import CategoryService from "./CategoryService";
 
 let AddCategory=()=>
 {
-    let [categoryName, setCategoryName]=useState("");
-    let [message, setMessage]=useState("");
+    let [category, setCategory]=useState(
+        {
+            name:""
+        });
+    let [msg, setMsg]=useState("");
 
-    let handleSubmit=(e)=>
+    const handleChange=(e)=>
+    {
+        setCategory({...category,[e.target.name]: e.target.value});
+    }
+
+    const handleSubmit=(e)=>
     {
         e.preventDefault();
-        if(!categoryName || categoryName.trim().length === 0)
+        if(!category.name || category.name.trim().length===0)
         {
-            setMessage("Category Name Cannot Be Empty");
+            setMsg("Category Name Cannot Be Empty");
             return;
         }
-        setMessage(`Category "${categoryName}" Added Successfully!`);
-        setCategoryName(""); //clear input field after submission
-        setTimeout(()=> setMessage(""), 3000);
-    };
 
+        CategoryService.createCategory(category)
+        .then((res)=>
+        {
+            setMsg(res.data);
+            setCategory({name:""});
+            setTimeout(()=>setMsg(""),3000);
+        })
+        .catch((err)=>
+        {
+            setMsg(err.response?.data || "Something Went Wrong");
+        });
+    };
+        
     return (
         <>
           <div className="add-category-wrapper">
@@ -30,18 +48,15 @@ let AddCategory=()=>
         <input
           type="text"
           placeholder="Enter Category Name"
-          value={categoryName}
-          onChange={(e) => setCategoryName(e.target.value)}
+          value={category.name}
+          onChange={handleChange}
         />
       </div>
-      {message && <p className="message">{message}</p>}
-      <button type="submit" className="submit-btn">
-        Add Category
-      </button>
+      {msg && <p className="message">{msg}</p>}
+      <button type="submit" className="submit-btn">Add Category</button>
     </form>
   </div>
 </div>
-
         </>
       );
     };      
