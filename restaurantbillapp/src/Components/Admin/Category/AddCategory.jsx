@@ -23,10 +23,12 @@ let AddCategory=()=>
             setMsg("Category Name Cannot Be Empty");
             return;
         }
+        console.log("sending category to backend");
 
         CategoryService.createCategory(category)
         .then((res)=>
         {
+            console.log("Response from backend: "+res.data);
             setMsg(res.data);
             setCategory({name:""});
             setTimeout(()=>setMsg(""),3000);
@@ -47,6 +49,7 @@ let AddCategory=()=>
         <label>Category Name</label>
         <input
           type="text"
+          name="name"
           placeholder="Enter Category Name"
           value={category.name}
           onChange={handleChange}

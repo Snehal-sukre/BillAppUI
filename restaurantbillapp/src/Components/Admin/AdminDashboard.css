@@ -1,7 +1,7 @@
 .admin-sidebar {
   width: 250px;
   height: 100vh;
-  background: white;
+  background: #f8f7f7;
   border-right: 1px solid #ddd;
   position: fixed;
   top: 0;
@@ -10,6 +10,7 @@
   padding: 20px;
   z-index: 1000;
   transition: all 0.3s ease-in-out;
+  overflow-y: hidden;
 }
 ul li
 {
@@ -23,7 +24,9 @@ ul li
 
 .sidebar-logo {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  background-color: white;
+  padding: 15px;
 }
 
 .logo-icon {
@@ -33,7 +36,7 @@ ul li
 .logo-text {
   display: block;
   color: #ff3c00;
-  font-size: 1.3em;
+  font-size: 1.5em;
   font-weight: bold;
   margin-top: 5px;
 }
@@ -41,10 +44,10 @@ ul li
 .menu-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   color: black;
-  font-size: 1.1em;
-  padding: 10px 0;
+  font-size: 1.2em;
+  padding: 12px 0;
   cursor: pointer;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -56,7 +59,7 @@ ul li
 }
 
 .menu-icon {
-  font-size: 1.3em;
+  font-size: 1.2em;
   transition: color 0.3s ease;
 }
 
@@ -71,7 +74,7 @@ ul li
 .submenu-link {
   display: block;
   color: #333;
-  font-size: 1em;
+  font-size: 1.1em;
   padding: 5px 0;
   text-decoration: none;
   transition: color 0.3s ease;

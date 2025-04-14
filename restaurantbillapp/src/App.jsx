@@ -6,6 +6,7 @@ import AdminLayout from "./Components/Admin/AdminLayout";
 import AddCategory from "./Components/Admin/Category/AddCategory";
 import AdminHome from "./Components/Admin/AdminHome"; 
 import ViewCategory from "./Components/Admin/Category/ViewCategory";
+import UpdateCategory from "./Components/Admin/Category/UpdateCategory";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
            <Route index element={<AdminHome />} />
            <Route path="addcategory" element={<AddCategory />} />
            <Route path="viewcategory" element={<ViewCategory/>}/>
+           <Route path="updcat/:catid" element={<UpdateCategory/>}/>
         </Route>
 
       </Routes>
