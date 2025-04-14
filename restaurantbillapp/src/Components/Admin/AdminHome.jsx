@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "./AdminHome.css";
 import { FaClipboardList, FaUtensils, FaChair } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
+import CategoryService from "./Category/CategoryService";
 
 const AdminHome = () => {
+
+  const[categories, setCategories]=useState([]);
+
+  useEffect(()=>
+  {
+    CategoryService.getCategory()
+    .then((res)=>
+    {
+      setCategories(res.data);
+    })
+    .catch((err)=>
+    {
+      console.error("Error in Fetching Categories:",err);
+    });
+  },[]);
+
   return (
     <div className="main-content">
     <div className="admin-dashboard">
@@ -16,7 +33,7 @@ const AdminHome = () => {
           <div className="card-icon"><MdCategory size={28} /></div>
           <div className="card-info">
             <p>Total Categories</p>
-            <h3>6</h3>
+            <h3>{categories.length}</h3>
           </div>
         </div>
 
