@@ -8,6 +8,7 @@ import AdminHome from "./Components/Admin/AdminHome";
 import ViewCategory from "./Components/Admin/Category/ViewCategory";
 import UpdateCategory from "./Components/Admin/Category/UpdateCategory";
 import AddMenu from "./Components/Admin/Menu/AddMenu";
+import ViewMenu from "./Components/Admin/Menu/ViewMenu";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
            <Route path="viewcategory" element={<ViewCategory/>}/>
            <Route path="updcat/:catid" element={<UpdateCategory/>}/>
            <Route path="addmenu" element={<AddMenu/>}/>
+           <Route path="viewmenu" element={<ViewMenu/>}/>
         </Route>
 
       </Routes>

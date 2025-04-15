@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
@@ -28,6 +27,7 @@ const AdminDashboard = () => {
       category: false,
       menu: false,
       staff: false,
+      dinning: false,
       orders: false,
       [key]: !dropdownOpen[key],
     });
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
         <li>
           <div className="menu-item" onClick={() => toggleDropdown("staff")}>
             <FaUserTie className="menu-icon" />
-            Staff
+            Staffs
           </div>
           {dropdownOpen.staff && (
             <ul className="submenu">
@@ -114,27 +114,27 @@ const AdminDashboard = () => {
           )}
         </li>
 
-        {/* Dining Table Dropdown */}
-<li>
-  <div className="menu-item" onClick={() => toggleDropdown("dining")}>
-    <FaChair className="menu-icon" />
-    Dining Table
-  </div>
-  {dropdownOpen.dining && (
-    <ul className="submenu">
-      <li>
-        <NavLink to="/admin/addtable" className="submenu-link">
-          Add Dining Table
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/admin/viewtable" className="submenu-link">
-          View Dining Table
-        </NavLink>
-      </li>
-    </ul>
-  )}
-</li>
+        {/* Dinning Table Dropdown */}
+        <li>
+          <div className="menu-item" onClick={() => toggleDropdown("dinning")}>
+            <FaChair className="menu-icon" />
+            Tables
+          </div>
+          {dropdownOpen.dinning && (
+            <ul className="submenu">
+              <li>
+                <NavLink to="/admin/addtable" className="submenu-link">
+                  Add Table
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/admin/viewtable" className="submenu-link">
+                  View Tables
+                </NavLink>
+              </li>
+            </ul>
+          )}
+        </li>
 
         {/* Orders Dropdown */}
         <li>
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
           {dropdownOpen.orders && (
             <ul className="submenu">
               <li>
-                <NavLink to="/admin/vieworder" className="submenu-link">
+                <NavLink to="/admin/vieworders" className="submenu-link">
                   View Orders
                 </NavLink>
               </li>
@@ -153,15 +153,15 @@ const AdminDashboard = () => {
           )}
         </li>
 
-        {/* Bill */}
+        {/* Invoice */}
         <li>
           <NavLink to="/admin/bill" className="menu-item">
             <FaFileInvoiceDollar className="menu-icon" />
-            Bill
+            Invoice
           </NavLink>
         </li>
 
-        {/* Report */}
+        {/* Reports */}
         <li>
           <NavLink to="/admin/reports" className="menu-item">
             <FaChartBar className="menu-icon" />
