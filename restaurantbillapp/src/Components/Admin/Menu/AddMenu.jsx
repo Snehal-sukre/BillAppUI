@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./Menu.css"; 
+import "./Menu.css";
+import MenuService from "./MenuService";
+import CategoryService from "../Category/CategoryService";
 
 let AddMenu = () => {
   const [menu, setMenu] = useState({
@@ -8,91 +10,133 @@ let AddMenu = () => {
     price: "",
     description: "",
     image: null,
-    message: "",
   });
 
+  const [message, setMessage] = useState("");
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    setCategories([
-      { id: 1, name: "Breakfast" },
-      { id: 2, name: "Snacks" },
-      { id: 3, name: "Desserts" },
-      { id: 4, name: "Drinks" },
-      { id: 5, name: "Lunch" },
-    ]);
+    // ✅ Fetch categories from backend
+    CategoryService.getCategory()
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching categories:", err);
+      });
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setMenu({ ...menu, image: files[0] }); // Use first file
+    } else {
+      setMenu({ ...menu, [name]: value });
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, categoryId, price, description, image } = menu;
 
     if (!name || !categoryId || !price || !description || !image) {
-      setMenu((prev) => ({ ...prev, message: "All Fields Are Required!" }));
+      setMessage("All fields are required!");
       return;
     }
+    console.log("Sending Menu To Backend");
 
-    console.log("Menu Data: ", menu);
-    setMenu({
-      name: "",
-      categoryId: "",
-      price: "",
-      description: "",
-      image: null,
-      message: `Menu ${menu.name} added successfully!`,
-    });
-
-    setTimeout(() => {
-      setMenu((prev) => ({ ...prev, message: "" }));
-    }, 3000);
+    MenuService.createMenu(menu)
+      .then((res) => {
+        console.log("Response From Backend:"+res.data);
+        setMessage(res.data);
+        /*setMessage(`Menu "${name}" added successfully!`); */
+        setMenu({
+          name: "",
+          categoryId: "",
+          price: "",
+          description: "",
+          image: null,
+        });
+        setTimeout(() => setMessage(""), 3000);
+      })
+      .catch((err) => {
+        console.error(err);
+        setMessage(err.response?.data || "Something went wrong");
+      });
   };
 
   return (
     <div className="form-wrapper">
-    <div className="container">
-      <h2>Add Menu</h2>
-      <form onSubmit={handleSubmit} className="menu-form">
-        <div className="form-group">
-          <label>Menu Name</label>
-          <input type="text" value={menu.name} onChange={(e) => setMenu({ ...menu, name: e.target.value })}
-            placeholder="Enter Menu Name" required />
-        </div>
+      <div className="container">
+        <h2>Add Menu</h2>
+        <form onSubmit={handleSubmit} className="menu-form">
+          <div className="form-group">
+            <label>Menu Name</label>
+            <input
+              type="text"
+              value={menu.name}
+              name="name"
+              onChange={handleChange}
+              placeholder="Enter Menu Name"
+              required />
+          </div>
 
-        <div className="form-group">
-          <label>Select Category</label>
-          <select
-            value={menu.categoryId}
-            onChange={(e) => setMenu({ ...menu, categoryId: e.target.value })}
-            required>
-            <option value="">-- Select Category --</option>
-            {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
-            ))}
-          </select>
-        </div>
+          <div className="form-group">
+            <label>Select Category</label>
+            <select
+              value={menu.categoryId}
+              name="categoryId"
+              onChange={handleChange}
+              required >
+              <option value="">-- Select Category --</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label>Price</label>
-          <input type="number" value={menu.price} onChange={(e) => setMenu({ ...menu, price: e.target.value })}
-            placeholder="Enter Price" required />
-        </div>
+          <div className="form-group">
+            <label>Price</label>
+            <input
+              type="number"
+              name="price" 
+              value={menu.price}
+              onChange={handleChange}
+              placeholder="Enter Price"
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>Description</label>
-          <textarea value={menu.description} onChange={(e) => setMenu({ ...menu, description: e.target.value })}
-            placeholder="Enter Description" required />
-        </div>
+          <div className="form-group">
+            <label>Description</label>
+            <textarea
+              value={menu.description}
+              name="description"
+              onChange={handleChange}
+              placeholder="Enter Description"
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>Upload Menu Image</label>
-          <input type="file" accept="image/*" onChange={(e) => setMenu({ ...menu, image: e.target.files[0] })} required  />
-        </div>
+          <div className="form-group">
+            <label>Upload Menu Image</label>
+            <input
+              type="file"
+              name="image"  
+              accept="image/*"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        {menu.message && <p className="message">{menu.message}</p>}
+          {message && <p className="message">{message}</p>}
 
-        <button type="submit" className="submit-btn">Add Menu</button>
-      </form>
-    </div>
+          <button type="submit" className="submit-btn">
+            Add Menu
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
