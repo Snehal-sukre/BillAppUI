@@ -1,0 +1,88 @@
+/* AddMenu.css */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-left: 520px;
+  }
+  
+  .container {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 700px;
+    max-width: 100%;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .menu-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  input[type="file"] {
+    font-size: 14px;
+  }
+  
+  button.submit-btn {
+    padding: 12px;
+    background-color: #ff4e00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.submit-btn:hover {
+    background-color: #e64500;
+  }
+  
+  .message {
+    color: #ff4e00;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form p {
+    margin: 0;
+  }
+  
