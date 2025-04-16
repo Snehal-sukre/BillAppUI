@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Staff.css";
+import StaffService from "./StaffService";
 
 const AddStaff = () => {
   const [staff, setStaff] = useState({
@@ -25,17 +26,27 @@ const AddStaff = () => {
       return;
     }
 
-    console.log("Staff Details:", staff);
-    setMessage(`Staff "${name}" added successfully!`);
+    /*console.log("Staff Details:", staff);
+    setMessage(`Staff "${name}" added successfully!`); */
 
+    StaffService.createStaff(staff)
+    .then((res)=>
+    {
+      console.log("Response From Backend: "+res.data);
+      setMessage(res.data);
     setStaff({
       name: "",
       email: "",
       contact: "",
       salary: "",
     });
-
     setTimeout(() => setMessage(""), 3000);
+  })
+  .catch((err)=>
+  {
+    console.error(err);
+    setMessage(err.response?.data || "Something went wrong");
+  });
   };
 
   return (
