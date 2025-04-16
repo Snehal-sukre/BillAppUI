@@ -157,7 +157,7 @@ const AdminDashboard = () => {
         <li>
           <NavLink to="/admin/bill" className="menu-item">
             <FaFileInvoiceDollar className="menu-icon" />
-            Invoice
+            Bill
           </NavLink>
         </li>
 

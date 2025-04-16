@@ -38,6 +38,20 @@ const ViewMenu = () => {
     }
   };
 
+  useEffect(()=>
+  {
+    if(searchTerm.trim()==="")
+    {
+      fetchMenus();
+    }
+    else
+    {
+      MenuService.customizeSearch(searchTerm)
+      .then((res)=>setMenus(res.data))
+      .catch((err)=>setErrorMsg(err.response?.data || {message:"Search Error", statusCode:400}));
+    }
+  }, [searchTerm]);
+
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

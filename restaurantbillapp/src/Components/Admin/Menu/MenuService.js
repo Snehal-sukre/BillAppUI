@@ -5,7 +5,7 @@ let saveMenu="http://localhost:8080/addmenu";
 let updateMenu="http://localhost:8080/searchMenuById";
 let updMenu="http://localhost:8080/updateMenu";
 let deleteMenu="http://localhost:8080/deleteMenuById";
-/*let searchMenu="http://localhost:8080/search"; */
+let searchMenu="http://localhost:8080/searchMenu"; 
 
 
 class MenuService
@@ -31,10 +31,10 @@ class MenuService
     {
         return axios.delete(deleteMenu+"/"+menuid);
     }
-    /*customizeSearch(pattern)
+    customizeSearch(pattern)
     {
-        return axios.get(searchCategory+"/"+pattern);
-    } */
+        return axios.get(searchMenu+"/"+pattern);
+    } 
 }
 
 export default new MenuService();

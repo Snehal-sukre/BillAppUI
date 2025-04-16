@@ -9,6 +9,8 @@ import ViewCategory from "./Components/Admin/Category/ViewCategory";
 import UpdateCategory from "./Components/Admin/Category/UpdateCategory";
 import AddMenu from "./Components/Admin/Menu/AddMenu";
 import ViewMenu from "./Components/Admin/Menu/ViewMenu";
+import UpdateMenu from "./Components/Admin/Menu/UpdateMenu";
+import AddStaff from "./Components/Admin/Staff/AddStaff";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
            <Route path="updcat/:catid" element={<UpdateCategory/>}/>
            <Route path="addmenu" element={<AddMenu/>}/>
            <Route path="viewmenu" element={<ViewMenu/>}/>
+           <Route path="updmenu/:menuid" element={<UpdateMenu/>}/>
+           <Route path="addstaff" element={<AddStaff/>} />
         </Route>
 
       </Routes>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Menu.css";
+import { useParams, useNavigate } from "react-router-dom";
 import MenuService from "./MenuService";
 import CategoryService from "../Category/CategoryService";
 
-let AddMenu = () => {
+let UpdateMenu = () => {
   const [menu, setMenu] = useState({
     name: "",
     categoryId: "",
@@ -13,62 +14,70 @@ let AddMenu = () => {
   });
 
   const [message, setMessage] = useState("");
+  const { menuid } = useParams();
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // ✅ Fetch categories from backend
+    // Load categories
     CategoryService.getCategory()
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching categories:", err);
-      });
+      .then((res) => setCategories(res.data))
+      .catch((err) => console.error("Error fetching categories:", err));
   }, []);
+
+  useEffect(() => {
+    // Load existing menu data for editing
+    MenuService.updateMenu(menuid)
+      .then((res) => setMenu(res.data))
+      .catch((err) => console.error(err));
+  }, [menuid]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image") {
-      setMenu({ ...menu, image: files[0] }); // Use first file
+      setMenu({ ...menu, image: files[0] });
     } else {
       setMenu({ ...menu, [name]: value });
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, categoryId, price, description, image } = menu;
+    const { name, categoryId, price, description } = menu;
 
-    if (!name || !categoryId || !price || !description || !image) {
+    if (!name || !categoryId || !price || !description) {
       setMessage("All fields are required!");
       return;
     }
-    console.log("Sending Menu To Backend");
 
-    MenuService.createMenu(menu)
+    // Create a form data object (if you want to send image in future)
+    const formData = new FormData();
+    formData.append("id", menuid); // Add id explicitly
+    formData.append("name", name);
+    formData.append("categoryId", categoryId);
+    formData.append("price", price);
+    formData.append("description", description);
+
+    // If image is included (optional)
+    if (menu.image) {
+      formData.append("image", menu.image);
+    }
+
+    MenuService.updMenu(menu)
       .then((res) => {
-        console.log("Response From Backend:"+res.data);
-        setMessage(res.data);
-        /*setMessage(`Menu "${name}" added successfully!`); */
-        setMenu({
-          name: "",
-          categoryId: "",
-          price: "",
-          description: "",
-          image: null,
-        });
-        setTimeout(() => setMessage(""), 3000);
+        setMessage("Menu updated successfully!");
+        setTimeout(() => navigate("/admin/viewmenu"), 1500);
       })
       .catch((err) => {
         console.error(err);
-        setMessage(err.response?.data || "Something went wrong");
+        setMessage(err.response?.data || "Something went wrong while updating");
       });
   };
 
   return (
-    <div className="menu-container">
     <div className="form-wrapper">
       <div className="container">
-        <h2>Add Menu</h2>
+        <h2>Update Menu</h2>
         <form onSubmit={handleSubmit} className="menu-form">
           <div className="form-group">
             <label>Menu Name</label>
@@ -78,7 +87,8 @@ let AddMenu = () => {
               name="name"
               onChange={handleChange}
               placeholder="Enter Menu Name"
-              required />
+              required
+            />
           </div>
 
           <div className="form-group">
@@ -87,7 +97,8 @@ let AddMenu = () => {
               value={menu.categoryId}
               name="categoryId"
               onChange={handleChange}
-              required >
+              required
+            >
               <option value="">-- Select Category --</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
@@ -101,7 +112,7 @@ let AddMenu = () => {
             <label>Price</label>
             <input
               type="number"
-              name="price" 
+              name="price"
               value={menu.price}
               onChange={handleChange}
               placeholder="Enter Price"
@@ -124,23 +135,21 @@ let AddMenu = () => {
             <label>Upload Menu Image</label>
             <input
               type="file"
-              name="image"  
+              name="image"
               accept="image/*"
               onChange={handleChange}
-              required
             />
           </div>
 
           {message && <p className="message">{message}</p>}
 
           <button type="submit" className="submit-btn">
-            Add Menu
+            Update Menu
           </button>
         </form>
       </div>
     </div>
-    </div>
   );
 };
 
-export default AddMenu;
+export default UpdateMenu;
