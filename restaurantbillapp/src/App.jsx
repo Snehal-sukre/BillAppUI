@@ -12,6 +12,8 @@ import ViewMenu from "./Components/Admin/Menu/ViewMenu";
 import UpdateMenu from "./Components/Admin/Menu/UpdateMenu";
 import AddStaff from "./Components/Admin/Staff/AddStaff";
 import ViewStaff from "./Components/Admin/Staff/ViewStaff";
+import UpdateStaff from "./Components/Admin/Staff/UpdateStaff";
+import AddDiningTable from "./Components/Admin/DiningTable/AddDiningTable";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
            <Route path="updmenu/:menuid" element={<UpdateMenu/>}/>
            <Route path="addstaff" element={<AddStaff/>} />
            <Route path="viewstaff" element={<ViewStaff/>}/>
+           <Route path="updstaff/:staffid" element={<UpdateStaff/>}/>
+           <Route path="addtable" element={<AddDiningTable/>}/>
         </Route>
 
       </Routes>
