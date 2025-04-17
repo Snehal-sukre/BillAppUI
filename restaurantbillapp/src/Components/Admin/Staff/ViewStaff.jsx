@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from "react";
-import "./Staff.css"; // Same as AddStaff for consistency
+import React, { useState, useEffect } from "react";
+import './Staff.css';
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
-import StaffService from "./StaffService";
+import StaffService from './StaffService.js';
 import { Link } from "react-router-dom";
 
 const ViewStaff = () => {
-  const [staffList, setStaffList] = useState([]);
+  const [staff, setStaff] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState({ message: "", statusCode: 0 });
+
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  // Fetch all menus
+  const fetchStaff = () => {
+    StaffService.getStaff()
+      .then((res) => setStaff(res.data))
+      .catch((err) => setErrorMsg(err.response?.data || { message: "Server error", statusCode: 500 }));
+  };
 
   useEffect(() => {
     fetchStaff();
   }, []);
 
-  const fetchStaff = () => {
-    StaffService.getStaff()
-      .then((res) => setStaffList(res.data))
-      .catch((err) =>
-        setErrorMsg(err.response?.data || "Failed to load staff list")
-      );
-  };
-
+  // Delete menu item
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this staff?")) {
       StaffService.deleteStaff(id)
         .then(() => {
-          setStaffList((prev) => prev.filter((staff) => staff.id !== id));
+          setStaff(staff.filter((staff) => staff.id !== id));
         })
         .catch((err) => {
           console.error("Error deleting staff:", err);
@@ -36,30 +38,34 @@ const ViewStaff = () => {
     }
   };
 
-  useEffect(() => {
-    if (searchTerm.trim() === "") {
+  useEffect(()=>
+  {
+    if(searchTerm.trim()==="")
+    {
       fetchStaff();
-    } else {
-      StaffService.searchStaff(searchTerm)
-        .then((res) => setStaffList(res.data))
-        .catch((err) => setErrorMsg("Search failed"));
+    }
+    else
+    {
+      StaffService.customizeSearch(searchTerm)
+      .then((res)=>setStaff(res.data))
+      .catch((err)=>setErrorMsg(err.response?.data || {message:"Search Error", statusCode:400}));
     }
   }, [searchTerm]);
 
   // Pagination logic
-  const indexOfLast = currentPage * itemsPerPage;
-  const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentItems = staffList.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(staffList.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = staff.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(staff.length / itemsPerPage);
 
-  const paginate = (pageNum) => setCurrentPage(pageNum);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div className="view-category-wrapper">
-      {/* Search bar */}
-      <div className="view-category-searchbar">
+    <div className="view-staff-wrapper">
+      {/* Search */}
+      <div className="view-staff-searchbar">
         <FaSearch className="search-icon" />
         <input
           type="text"
@@ -73,10 +79,11 @@ const ViewStaff = () => {
       </div>
 
       {/* Table */}
-      <div className="view-category-table-wrapper">
+      <div className="view-staff-table-wrapper">
         <h2>View Staff</h2>
-        {errorMsg && <p className="error-msg">{errorMsg}</p>}
-        <table className="view-category-table">
+        {errorMsg.message && <p className="error-msg">{errorMsg.message}</p>}
+
+        <table className="view-staff-table">
           <thead>
             <tr>
               <th>ID</th>
@@ -94,16 +101,16 @@ const ViewStaff = () => {
                   <td>{staff.id}</td>
                   <td>{staff.name}</td>
                   <td>{staff.email}</td>
-                  <td>{staff.contact}</td>
+                  <td>₹{staff.contact}</td>
                   <td>{staff.salary}</td>
                   <td>
                     <Link to={`/admin/updstaff/${staff.id}`}>
-                      <button className="view-category-icon-btn view-category-edit-btn">
+                      <button className="view-staff-icon-btn view-staff-edit-btn">
                         <FaEdit />
                       </button>
                     </Link>
                     <button
-                      className="view-category-icon-btn view-category-delete-btn"
+                      className="view-staff-icon-btn view-staff-delete-btn"
                       onClick={() => handleDelete(staff.id)}
                     >
                       <FaTrash />
@@ -113,7 +120,7 @@ const ViewStaff = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6">No staff found</td>
+                <td colSpan="7">No Staff available</td>
               </tr>
             )}
           </tbody>
@@ -121,22 +128,18 @@ const ViewStaff = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="pagination">
-            <button onClick={prevPage} disabled={currentPage === 1}>
-              Prev
-            </button>
-            {[...Array(totalPages).keys()].map((num) => (
+          <div className="pagination-controls">
+            <button onClick={prevPage} disabled={currentPage === 1}>Prev</button>
+            {[...Array(totalPages)].map((_, index) => (
               <button
-                key={num + 1}
-                onClick={() => paginate(num + 1)}
-                className={currentPage === num + 1 ? "active" : ""}
+                key={index + 1}
+                className={currentPage === index + 1 ? "active-page" : ""}
+                onClick={() => paginate(index + 1)}
               >
-                {num + 1}
+                {index + 1}
               </button>
             ))}
-            <button onClick={nextPage} disabled={currentPage === totalPages}>
-              Next
-            </button>
+            <button onClick={nextPage} disabled={currentPage === totalPages}>Next</button>
           </div>
         )}
       </div>

@@ -15,7 +15,7 @@
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0.1, 0, 0.1);
     border-radius: 8px;
-    width: 700px; 
+    width: 700px;
     max-width: 100%; 
     overflow: hidden;
     padding-left: 40px;
@@ -30,7 +30,7 @@
     margin-bottom: 20px;
   }
   
-  .menu-form {
+  .staff-form {
     display: flex;
     flex-direction: column;
   }
@@ -92,7 +92,7 @@
     margin: 0;
   }
   
-  .view-menu-wrapper {
+  .view-staff-wrapper {
     position: absolute;
     top: 0;
     left: 220px;
@@ -107,7 +107,7 @@
   }
   
   /* Search bar */
-  .view-menu-searchbar {
+  .view-staff-searchbar {
     display: flex;
     align-items: center;
     width: 100%;
@@ -116,7 +116,7 @@
     position: relative;
   }
   
-  .view-menu-searchbar input {
+  .view-staff-searchbar input {
     width: 100%;
     padding: 10px 12px 10px 40px;
     font-size: 16px;
@@ -125,13 +125,13 @@
     transition: 0.3s ease;
   }
   
-  .view-menu-searchbar input:focus {
+  .view-staff-searchbar input:focus {
     border-color: #ff3c00;
     box-shadow: 0 0 5px rgba(255, 60, 0, 0.4);
     outline: none;
   }
   
-  .view-menu-searchbar .search-icon {
+  .view-staff-searchbar .search-icon {
     position: absolute;
     left: 12px;
     font-size: 18px;
@@ -140,7 +140,7 @@
   }
   
   /* Table wrapper */
-  .view-menu-table-wrapper {
+  .view-staff-table-wrapper {
     width: 100%;
     max-width: 1000px;
     background: #fff;
@@ -151,7 +151,7 @@
   }
   
   /* Heading */
-  .view-menu-table-wrapper h2 {
+  .view-staff-table-wrapper h2 {
     margin-bottom: 15px;
     font-size: 22px;
     color: #333;
@@ -159,30 +159,30 @@
   }
   
   /* Table styles */
-  .view-menu-table {
+  .view-staff-table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .view-menu-table th,
-  .view-menu-table td {
+  .view-staff-table th,
+  .view-staff-table td {
     padding: 12px 15px;
     border-bottom: 1px solid #eee;
     text-align: center;
   }
   
-  .view-menu-table th {
+  .view-staff-table th {
     background-color: #ff3c00;
     font-weight: bold;
     color: #fff;
   }
   
-  .view-menu-table tr:hover {
+  .view-staff-table tr:hover {
     background-color: #f9f9f9;
   }
   
   /* Action Buttons */
-  .view-menu-icon-btn {
+  .view-staff-icon-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -193,19 +193,19 @@
     transition: background 0.3s;
   }
   
-  .view-menu-edit-btn {
+  .view-staff-edit-btn {
     color: green;
   }
   
-  .view-menu-edit-btn:hover {
+  .view-staff-edit-btn:hover {
     background-color: #e7f0ff;
   }
   
-  .view-menu-delete-btn {
+  .view-staff-delete-btn{
     color: #ff3c00;
   }
   
-  .view-menu-delete-btn:hover {
+  .view-staff-delete-btn:hover {
     background-color: #ffecec;
   }
   
