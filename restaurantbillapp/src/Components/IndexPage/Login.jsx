@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import { FaUser, FaLock } from 'react-icons/fa'; 
+import { FaUser, FaLock } from 'react-icons/fa';
+import StaffService from '../Admin/Staff/StaffService';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -9,13 +10,34 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Admin Login
     if (username === 'admin' && password === 'admin123') {
       setErrorMessage('');
       navigate('/admin');
-    } else {
-      setErrorMessage('Invalid username or password.');
+      return;
+    }
+
+    try {
+      // Staff login check: match email and contact
+      const res = await StaffService.getStaff(); // This should return array of staff
+      const staffList = res.data;
+
+      const matchedStaff = staffList.find(
+        (staff) => staff.email === username && staff.contact === password
+      );
+
+      if (matchedStaff) {
+        setErrorMessage('');
+        navigate('/staff');
+      } else {
+        setErrorMessage('Invalid credentials. Please contact admin for access.');
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Server error. Please try again later.');
     }
   };
 

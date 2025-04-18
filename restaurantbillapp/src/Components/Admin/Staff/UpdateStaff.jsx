@@ -23,8 +23,8 @@ let UpdateStaff = () => {
   }, [staffid]);
 
   const handleChange = (e) => {
-    const{name,value}=e.target;
-    setStaff({... staff, [name]:value});
+    const { name, value } = e.target;
+    setStaff({ ...staff, [name]: value });
   };
 
   const handleSubmit = (e) => {
@@ -33,6 +33,20 @@ let UpdateStaff = () => {
 
     if (!name || !email || !contact || !salary) {
       setMessage("All fields are required!");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    // Contact number validation: numeric and 10 digits
+    const contactRegex = /^[0-9]{10}$/;
+    if (!contactRegex.test(contact)) {
+      setMessage("Contact number must be a 10-digit numeric value.");
       return;
     }
 
@@ -114,4 +128,3 @@ let UpdateStaff = () => {
 };
 
 export default UpdateStaff;
-

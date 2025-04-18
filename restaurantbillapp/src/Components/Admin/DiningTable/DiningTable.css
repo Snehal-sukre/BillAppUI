@@ -86,3 +86,172 @@
     color: #ff3c00;
   }
   
+  .view-table-wrapper {
+    position: absolute;
+    top: 0;
+    left: 220px;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Search bar */
+  .view-table-searchbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .view-table-searchbar input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s ease;
+  }
+  
+  .view-table-searchbar input:focus {
+    border-color: #ff3c00;
+    box-shadow: 0 0 5px rgba(255, 60, 0, 0.4);
+    outline: none;
+  }
+  
+  .view-table-searchbar .search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 18px;
+    color: #888;
+    pointer-events: none;
+  }
+  
+  /* Table wrapper */
+  .view-dining-table-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #ccc;
+  }
+  
+  /* Heading */
+  .view-dining-table-wrapper h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Table styles */
+  .view-dining-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .view-dining-table th,
+  .view-dining-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+  
+  .view-dining-table th {
+    background-color: #ff3c00;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .view-dining-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Action Buttons */
+  .view-table-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 5px;
+    padding: 6px;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  
+  .view-table-edit-btn {
+    color: green;
+  }
+  
+  .view-table-edit-btn:hover {
+    background-color: #e7f0ff;
+  }
+  
+  .view-table-delete-btn{
+    color: #ff3c00;
+  }
+  
+  .view-table-delete-btn:hover {
+    background-color: #ffecec;
+  }
+  
+  /* Error message */
+  .error-msg {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .availability-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .available {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .occupied {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  
+  /* Pagination */
+  .pagination-controls {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .pagination-controls button {
+    margin: 0 5px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .pagination-controls button:hover {
+    background-color: #ff3c00;
+    color: white;
+  }
+  
+  .pagination-controls .active-page {
+    background-color: #ff3c00;
+    color: white;
+  }

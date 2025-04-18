@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import './DiningTable.css';
+import DiningTableService from "./DiningTableService";
 
 let AddDiningTable = () => {
   let [table, setTable] = useState({
-    tableNumber: "",
+    id: "",
     capacity: "",
     availability: "Available"
   });
@@ -17,21 +18,29 @@ let AddDiningTable = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!table.tableNumber || !table.capacity) {
+    if (!table.id || !table.capacity) {
       setMsg("Table Number and Capacity are required");
       return;
     }
 
-    console.log("Sending table data to backend (API not connected):", table);
+    console.log("Sending table data to backend:", table);
 
-    setMsg("Dining Table Added Successfully");
-    setTable({
-      tableNumber: "",
-      capacity: "",
-      availability: "Available"
-    });
-
-    setTimeout(() => setMsg(""), 3000);
+    DiningTableService.createTable(table)
+    .then((res)=>
+    {
+      console.log("Response From Backend: "+res.data);
+      setMsg(res.data);
+      setTable({
+        tableNumber: "",
+        capacity: "",
+        availability: "Available"
+      });
+      setTimeout(() => setMsg(""), 3000);
+    })
+    .catch((err)=>
+    {
+      setMsg(err.response?.data || "Something Went Wrong");
+    });  
   };
 
   return (
@@ -44,9 +53,9 @@ let AddDiningTable = () => {
             <label>Table Number</label>
             <input
               type="number"
-              name="tableNumber"
+              name="id"
               placeholder="Enter Table Number"
-              value={table.tableNumber}
+              value={table.id}
               onChange={handleChange}
             />
           </div>
