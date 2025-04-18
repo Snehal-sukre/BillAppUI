@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import './Staff.css';
+import './DiningTable.css';
 import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
-import StaffService from './StaffService.js';
+import DiningTableService from './DiningTableService.js';
 import { Link } from "react-router-dom";
 
-const ViewStaff = () => {
-  const [staff, setStaff] = useState([]);
+const ViewDiningTable = () => {
+  const [table, setTable] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMsg, setErrorMsg] = useState({ message: "", statusCode: 0 });
 
@@ -13,27 +13,27 @@ const ViewStaff = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // Fetch all menus
-  const fetchStaff = () => {
-    StaffService.getStaff()
-      .then((res) => setStaff(res.data))
+  // Fetch all Tables
+  const fetchTable = () => {
+    DiningTableService.getTables()
+      .then((res) => setTable(res.data))
       .catch((err) => setErrorMsg(err.response?.data || { message: "Server error", statusCode: 500 }));
   };
 
   useEffect(() => {
-    fetchStaff();
+    fetchTable();
   }, []);
 
-  // Delete menu item
+  // Delete Dining Table item
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this staff?")) {
-      StaffService.deleteStaff(id)
+    if (window.confirm("Are you sure you want to delete this Dining Table?")) {
+      DiningTableService.deleteTable(id)
         .then(() => {
-          setStaff(staff.filter((staff) => staff.id !== id));
+          setTable(table.filter((table) => table.id !== id));
         })
         .catch((err) => {
-          console.error("Error deleting staff:", err);
-          alert("Failed to delete staff");
+          console.error("Error deleting Dining Table:", err);
+          alert("Failed to delete Dining Table");
         });
     }
   };
@@ -42,12 +42,12 @@ const ViewStaff = () => {
   {
     if(searchTerm.trim()==="")
     {
-      fetchStaff();
+      fetchTable();
     }
     else
     {
-      StaffService.customizeSearch(searchTerm)
-      .then((res)=>setStaff(res.data))
+      DiningTableService.customizeSearch(searchTerm)
+      .then((res)=>setTable(res.data))
       .catch((err)=>setErrorMsg(err.response?.data || {message:"Search Error", statusCode:400}));
     }
   }, [searchTerm]);
@@ -55,21 +55,21 @@ const ViewStaff = () => {
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = staff.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(staff.length / itemsPerPage);
+  const currentItems = table.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(table.length / itemsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div className="view-staff-wrapper">
+    <div className="view-table-wrapper">
       {/* Search */}
-      <div className="view-staff-searchbar">
+      <div className="view-table-searchbar">
         <FaSearch className="search-icon" />
         <input
           type="text"
-          placeholder="Search staff..."
+          placeholder="Search Dining Table..."
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
@@ -79,39 +79,35 @@ const ViewStaff = () => {
       </div>
 
       {/* Table */}
-      <div className="view-staff-table-wrapper">
-        <h2>View Staff</h2>
+      <div className="view-dining-table-wrapper">
+        <h2>View Dining Table</h2>
         {errorMsg.message && <p className="error-msg">{errorMsg.message}</p>}
 
-        <table className="view-staff-table">
+        <table className="view-dining-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Staff Name</th>
-              <th>Email</th>
-              <th>Contact</th>
-              <th>Salary</th>
+              <th>Capacity</th>
+              <th>Availability Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentItems.length > 0 ? (
-              currentItems.map((staff) => (
-                <tr key={staff.id}>
-                  <td>{staff.id}</td>
-                  <td>{staff.name}</td>
-                  <td>{staff.email}</td>
-                  <td>{staff.contact}</td>
-                  <td>{staff.salary}</td>
+              currentItems.map((table) => (
+                <tr key={table.id}>
+                  <td>{table.id}</td>
+                  <td>{table.capacity}</td>
+                  <td>{table.availability}</td>
                   <td>
-                    <Link to={`/admin/updstaff/${staff.id}`}>
-                      <button className="view-staff-icon-btn view-staff-edit-btn">
+                    <Link to={`/admin/updtable/${table.id}`}>
+                      <button className="view-table-icon-btn view-table-edit-btn">
                         <FaEdit />
                       </button>
                     </Link>
                     <button
-                      className="view-staff-icon-btn view-staff-delete-btn"
-                      onClick={() => handleDelete(staff.id)}
+                      className="view-table-icon-btn view-table-delete-btn"
+                      onClick={() => handleDelete(table.id)}
                     >
                       <FaTrash />
                     </button>
@@ -120,7 +116,7 @@ const ViewStaff = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7">No Staff available</td>
+                <td colSpan="7">No Dining Table available</td>
               </tr>
             )}
           </tbody>
@@ -147,4 +143,4 @@ const ViewStaff = () => {
   );
 };
 
-export default ViewStaff;
+export default ViewDiningTable;

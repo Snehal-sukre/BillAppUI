@@ -21,32 +21,42 @@ const AddStaff = () => {
     e.preventDefault();
     const { name, email, contact, salary } = staff;
 
+    // Validation: Empty check
     if (!name || !email || !contact || !salary) {
       setMessage("All fields are required!");
       return;
     }
 
-    /*console.log("Staff Details:", staff);
-    setMessage(`Staff "${name}" added successfully!`); */
+    // Validation: Email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    // Validation: Contact number (10 digits only)
+    const contactRegex = /^[0-9]{10}$/;
+    if (!contactRegex.test(contact)) {
+      setMessage("Contact number must be exactly 10 digits.");
+      return;
+    }
 
     StaffService.createStaff(staff)
-    .then((res)=>
-    {
-      console.log("Response From Backend: "+res.data);
-      setMessage(res.data);
-    setStaff({
-      name: "",
-      email: "",
-      contact: "",
-      salary: "",
-    });
-    setTimeout(() => setMessage(""), 3000);
-  })
-  .catch((err)=>
-  {
-    console.error(err);
-    setMessage(err.response?.data || "Something went wrong");
-  });
+      .then((res) => {
+        console.log("Response From Backend: " + res.data);
+        setMessage(res.data);
+        setStaff({
+          name: "",
+          email: "",
+          contact: "",
+          salary: "",
+        });
+        setTimeout(() => setMessage(""), 3000);
+      })
+      .catch((err) => {
+        console.error(err);
+        setMessage(err.response?.data || "Something went wrong");
+      });
   };
 
   return (

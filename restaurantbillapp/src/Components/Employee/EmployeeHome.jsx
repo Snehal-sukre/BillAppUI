@@ -1,64 +1,38 @@
-import React, { useState, useEffect } from "react";
-import "./AdminHome.css";
+import React from "react";
 import { FaClipboardList, FaUtensils, FaChair } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
-import CategoryService from "./Category/CategoryService";
-import MenuService from "./Menu/MenuService";
-import DiningTableService from "./DiningTable/DiningTableService";
 
-const AdminHome = () => {
-  const [categories, setCategories] = useState([]);
-  const [menus, setMenus] = useState([]);
-  const[table, setTables]=useState([]);
-
-  useEffect(() => {
-    CategoryService.getCategory()
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => {
-        console.error("Error in Fetching Categories:", err);
-      });
-  }, []);
-
-  useEffect(() => {
-    DiningTableService.getTables()
-      .then((res) => {
-        setTables(res.data);
-      })
-      .catch((err) => {
-        console.error("Error in Fetching Menus:", err);
-      });
-  }, []);
-
-  useEffect(() => {
-    MenuService.getMenus()
-      .then((res) => {
-        setMenus(res.data);
-      })
-      .catch((err) => {
-        console.error("Error in Fetching Menus:", err);
-      });
-  }, []);
+const EmployeeHome = () => {
+  // Static values (replace with actual service calls later)
+  const totalTables = 10;
+  const availableTables = 6;
+  const occupiedTables = 4;
+  const totalOrders = 124;
+  const completedOrders = 100;
+  const pendingOrders = 24;
+  const totalMenus = 15;
+  const totalCategories = 5;
 
   return (
     <div className="main-content">
       <div className="admin-dashboard">
 
-        {/* ===== Added Logout Header ===== */}
+        {/* ===== Staff Welcome Header ===== */}
         <div className="admin-header">
-          <h2 className="admin-heading">Welcome to Admin Dashboard</h2>
+          <h2 className="admin-heading">Welcome to Staff Dashboard</h2>
           <button className="logout-btn" onClick={() => window.location.href = "/"}>
             Logout
           </button>
         </div>
+
+        {/* ===== Dashboard Cards ===== */}
         <div className="dashboard-cards">
           {/* Total Categories */}
           <div className="dashboard-card">
             <div className="card-icon"><MdCategory size={50} /></div>
             <div className="card-info">
               <p>Total Categories</p>
-              <h3>{categories.length}</h3>
+              <h3>{totalCategories}</h3>
             </div>
           </div>
 
@@ -67,7 +41,10 @@ const AdminHome = () => {
             <div className="card-icon"><FaUtensils size={50} /></div>
             <div className="card-info">
               <p>Total Menus</p>
-              <h3>{menus.length}</h3>
+              <h3>{totalMenus}</h3>
+              <div className="card-buttons">
+                <button onClick={() => alert("Redirecting to menu...")}>View Menu</button>
+              </div>
             </div>
           </div>
 
@@ -76,10 +53,10 @@ const AdminHome = () => {
             <div className="card-icon"><FaChair size={50} /></div>
             <div className="card-info">
               <p>Total Tables</p>
-              <h3>{table.length}</h3>
+              <h3>{totalTables}</h3>
               <div className="card-buttons">
-                <button>Available: 6</button>
-                <button>Occupied: 4</button>
+                <button>Available: {availableTables}</button>
+                <button>Occupied: {occupiedTables}</button>
               </div>
             </div>
           </div>
@@ -89,10 +66,15 @@ const AdminHome = () => {
             <div className="card-icon"><FaClipboardList size={50} /></div>
             <div className="card-info">
               <p>Total Orders</p>
-              <h3>124</h3>
+              <h3>{totalOrders}</h3>
               <div className="card-buttons">
-                <button>Completed: 100</button>
-                <button>Pending: 24</button>
+                <button>Completed: {completedOrders}</button>
+                <button>Pending: {pendingOrders}</button>
+              </div>
+              <div className="card-buttons">
+                <button onClick={() => alert("Redirecting to take new order...")}>
+                  Take New Order
+                </button>
               </div>
             </div>
           </div>
@@ -102,4 +84,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default EmployeeHome;
