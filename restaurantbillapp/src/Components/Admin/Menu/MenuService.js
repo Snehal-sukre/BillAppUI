@@ -17,7 +17,11 @@ class MenuService
 
     createMenu(menu)
     {
-        return axios.post(saveMenu,menu);
+        return axios.post(saveMenu,menu,{
+            headers:{
+                "Content-Type": "multipart/form-data",
+            },
+        });
     }
     updateMenu(menuid)
     {

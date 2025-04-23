@@ -34,6 +34,7 @@ let AddMenu = () => {
       setMenu({ ...menu, [name]: value });
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, categoryId, price, description, image } = menu;
@@ -44,11 +45,18 @@ let AddMenu = () => {
     }
     console.log("Sending Menu To Backend");
 
-    MenuService.createMenu(menu)
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("categoryId", categoryId);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("image", image); // Append the image file
+
+    // Send the FormData to the backend
+    MenuService.createMenu(formData)
       .then((res) => {
-        console.log("Response From Backend:"+res.data);
+        console.log("Response From Backend:" + res.data);
         setMessage(res.data);
-        /*setMessage(`Menu "${name}" added successfully!`); */
         setMenu({
           name: "",
           categoryId: "",
@@ -62,7 +70,7 @@ let AddMenu = () => {
         console.error(err);
         setMessage(err.response?.data || "Something went wrong");
       });
-  };
+};
 
   return (
     <div className="menu-container">
