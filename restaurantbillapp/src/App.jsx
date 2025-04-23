@@ -18,6 +18,7 @@ import ViewDiningTable from "./Components/Admin/DiningTable/ViewDiningTable";
 import UpdateDiningTable from "./Components/Admin/DiningTable/UpdateDiningTable";
 import EmployeeHome from "./Components/Employee/EmployeeHome";
 import EmployeeLayout from "./Components/Employee/EmployeeLayout";
+import ViewMenus from "./Components/Employee/Menus/ViewMenus";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
 
         <Route path="/staff" element={<EmployeeLayout/>}>
         <Route index element={<EmployeeHome />} />
+        <Route path="viewmenu" element={<ViewMenus/>}/>
         </Route>
 
       </Routes>

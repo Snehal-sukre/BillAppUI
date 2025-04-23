@@ -6,11 +6,12 @@ import CategoryService from "../Category/CategoryService";
 
 let UpdateMenu = () => {
   const [menu, setMenu] = useState({
+    id: "",
     name: "",
     categoryId: "",
     price: "",
     description: "",
-    image: null,
+    image: null, // Can be a File object or the existing image path
   });
 
   const [message, setMessage] = useState("");
@@ -28,14 +29,23 @@ let UpdateMenu = () => {
   useEffect(() => {
     // Load existing menu data for editing
     MenuService.updateMenu(menuid)
-      .then((res) => setMenu(res.data))
+      .then((res) => {
+        setMenu({
+          id: res.data.id,
+          name: res.data.name,
+          categoryId: res.data.categoryId,
+          price: res.data.price,
+          description: res.data.description,
+          image: res.data.image, // Store the existing image path initially
+        });
+      })
       .catch((err) => console.error(err));
   }, [menuid]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image") {
-      setMenu({ ...menu, image: files[0] });
+      setMenu({ ...menu, image: files[0] }); // Store the new File object
     } else {
       setMenu({ ...menu, [name]: value });
     }
@@ -43,27 +53,26 @@ let UpdateMenu = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, categoryId, price, description } = menu;
+    const { id, name, categoryId, price, description, image } = menu;
 
     if (!name || !categoryId || !price || !description) {
       setMessage("All fields are required!");
       return;
     }
 
-    // Create a form data object (if you want to send image in future)
     const formData = new FormData();
-    formData.append("id", menuid); // Add id explicitly
+    formData.append("id", id);
     formData.append("name", name);
     formData.append("categoryId", categoryId);
     formData.append("price", price);
     formData.append("description", description);
 
-    // If image is included (optional)
-    if (menu.image) {
-      formData.append("image", menu.image);
+    // Append the image file only if a new image has been selected
+    if (image instanceof File) {
+      formData.append("image", image);
     }
 
-    MenuService.updMenu(menu)
+    MenuService.updMenu(formData) // Send FormData for potential file upload
       .then((res) => {
         setMessage("Menu updated successfully!");
         setTimeout(() => navigate("/admin/viewmenu"), 1500);
@@ -132,7 +141,18 @@ let UpdateMenu = () => {
           </div>
 
           <div className="form-group">
-            <label>Upload Menu Image</label>
+            <label>Current Menu Image</label>
+            {menu.image && typeof menu.image === 'string' && (
+              <img
+                src={`http://localhost:8080${menu.image}`}
+                alt={menu.name}
+                style={{ maxWidth: '100px', maxHeight: '100px', display: 'block', marginBottom: '10px' }}
+              />
+            )}
+          </div>
+
+          <div className="form-group">
+            <label>Upload New Menu Image (Optional)</label>
             <input
               type="file"
               name="image"
