@@ -1,165 +1,229 @@
-.menu-section {
-    padding: 60px 20px;
-    background: #f8f9fa;
-    text-align: center;
-    margin-left: 400px;
+.staff-menus
+{
+  margin-left: 450px;
+}
+
+.view-menu-section {
+  padding: 60px 20px;
+  background: #f8f9fa;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.view-menu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.view-menu-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.view-menu-title span {
+  color: #ff3c00;
+}
+
+.view-menu-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Category Buttons */
+.view-menu-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.view-category-btn {
+  padding: 10px 20px;
+  border: 1px solid #ff3c00;
+  background: transparent;
+  color: #ff3c00;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.view-category-btn.active,
+.view-category-btn:hover {
+  background: #ff3c00;
+  color: #fff;
+}
+
+/* Menu Grid & Card */
+.view-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  justify-content: center;
+  align-items: start;
+}
+
+.view-menu-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.view-menu-card:hover {
+  transform: translateY(-5px);
+}
+
+.view-menu-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.view-menu-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.view-menu-content h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.view-menu-content p {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.view-menu-price {
+  font-weight: bold;
+  color: #ff3c00;
+  font-size: 1.1rem;
+}
+
+/* View All Button */
+.view-all-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.view-all-btn {
+  background-color: #ff3c00;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  white-space: nowrap;
+}
+
+.view-all-btn:hover {
+  background-color: #e53500;
+}
+
+.add-to-order-btn {
+  background-color: #ff3c00; /* Use your theme color */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px; /* Fully rounded corners */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-top: 10px; /* Add space between price and button */
+  width: fit-content; /* Adjust width to content */
+  align-self: center; /* Center the button horizontally within card */
+  white-space: nowrap;
+}
+
+.add-to-order-btn:hover {
+  background-color: #e53500; /* Darker shade on hover */
+}
+
+.add-to-order-btn:active {
+  background-color: #c82e00; /* Even darker shade on active/click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset; /* Simulate button press */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .view-menu-title {
+    font-size: 2.2rem;
   }
-  
-  .menu-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .menu-title {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .menu-title span {
-    color: #ff3c00;
-  }
-  
-  .menu-subtitle {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  /* Category Buttons */
-  .menu-categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-  
-  .category-btn {
-    padding: 10px 20px;
-    border: 1px solid #ff3c00;
-    background: transparent;
-    color: #ff3c00;
-    border-radius: 25px;
-    cursor: pointer;
+
+  .view-menu-subtitle {
     font-size: 1rem;
-    transition: all 0.3s ease;
-    white-space: nowrap;
   }
-  
-  .category-btn.active,
-  .category-btn:hover {
-    background: #ff3c00;
-    color: #fff;
-  }
-  
-  /* Menu Grid & Card */
-  .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid layout */
-    gap: 25px;
-    justify-content: center; /* Centers the grid within its container */
-    align-items: start; /* Important: Align items to the start of their cell */
-  }
-  
-  .menu-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    max-width: 350px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Make card height flexible */
-  }
-  
-  .menu-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .menu-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
-  
-  .menu-content {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1; /* Allow content to take up available space */
-  }
-  
-  .menu-content h3 {
-    margin: 0 0 10px;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .menu-content p {
+
+  .view-category-btn {
     font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 10px;
+    padding: 9px 18px;
   }
-  
-  .menu-price {
-    font-weight: bold;
-    color: #ff3c00;
-    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .view-menu-title {
+    font-size: 1.8rem;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .menu-title {
-      font-size: 2rem;
-    }
-  
-    .menu-subtitle {
-      font-size: 1rem;
-    }
-  
-    .category-btn {
-      font-size: 0.9rem;
-      padding: 8px 16px;
-    }
-  
-    .menu-content h3 {
-      font-size: 1rem;
-    }
-  
-    .menu-content p {
-      font-size: 0.9rem;
-    }
-  
-    .menu-price {
-      font-size: 1rem;
-    }
+
+  .view-menu-subtitle {
+    font-size: 0.95rem;
   }
-  
-  /* View All Button */
-  .view-all-container {
-    text-align: center;
-    margin-top: 20px;
+
+  .view-category-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
-  
+
+  .view-menu-content h3 {
+    font-size: 1rem;
+  }
+
+  .view-menu-content p {
+    font-size: 0.9rem;
+  }
+
+  .view-menu-price {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-menu-title {
+    font-size: 1.5rem;
+  }
+
+  .view-menu-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .view-category-btn {
+    font-size: 0.85rem;
+    padding: 7px 14px;
+  }
+
   .view-all-btn {
-    background-color: #ff3c00;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    white-space: nowrap;
+    font-size: 14px;
+    padding: 8px 20px;
   }
-  
-  .view-all-btn:hover {
-    background-color: #e53500;
-  }
-  
+}
