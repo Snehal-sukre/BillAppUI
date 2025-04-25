@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MenuService from "./MenuService";
-import "./ViewMenus.css"; // Make sure you have the CSS file
+import OrderPage from "../Orders/OrderPage"; // Assuming you have an OrderPage component
+import "./ViewMenus.css"; // Make sure you have the correct CSS
 
 const ViewMenus = () => {
   const [menuData, setMenuData] = useState({});
@@ -9,40 +10,35 @@ const ViewMenus = () => {
   const [showAll, setShowAll] = useState(false);
   const [categories, setCategories] = useState(["All"]);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState([]); // State to hold the order
+  const [order, setOrder] = useState([]); // Order state
+  const [activeItem, setActiveItem] = useState(null); // Active item for order form
 
+  // Fetch menu categories and menu items
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError("");
       try {
-        // Fetch categories
         const categoriesRes = await MenuService.getCategories();
         const categoryData = categoriesRes.data;
         if (categoryData && Array.isArray(categoryData)) {
           const categoryNames = ["All", ...categoryData.map((cat) => cat.name)];
           setCategories(categoryNames);
         } else {
-          const errorMessage =
-            categoryData?.message || "Invalid response from /viewCategory";
-          setError(
-            `Failed to load categories: ${errorMessage}. Expected an array.`
+          throw new Error(
+            `Failed to load categories: Expected an array but got ${typeof categoryData}`
           );
-          setLoading(false);
-          return;
         }
 
-        // Fetch menus
         const menuRes = await MenuService.getMenus();
         const menus = menuRes.data;
         if (menus && Array.isArray(menus)) {
           const groupedMenus = groupByCategory(menus);
           setMenuData(groupedMenus);
         } else {
-          const errorMessage = menus?.message || "Invalid response from /viewmenus";
-          setError(`Failed to load menus: ${errorMessage}. Expected an array.`);
-          setLoading(false);
-          return;
+          throw new Error(
+            `Failed to load menus: Expected an array but got ${typeof menus}`
+          );
         }
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -51,11 +47,13 @@ const ViewMenus = () => {
         setLoading(false);
       }
     };
+
     fetchData();
   }, []);
 
+  // Group menus by category
   const groupByCategory = (menus) => {
-    const grouped = menus.reduce((groupedObj, menu) => {
+    return menus.reduce((groupedObj, menu) => {
       const category = menu.categoryName || "Others";
       if (!groupedObj[category]) {
         groupedObj[category] = [];
@@ -63,22 +61,29 @@ const ViewMenus = () => {
       groupedObj[category].push(menu);
       return groupedObj;
     }, {});
-    return grouped;
   };
 
+  // Handle adding item to order
   const handleAddToOrder = (item) => {
-    // Basic add to order functionality.  Update as needed for your application.
-    setOrder([...order, item]);
+    setActiveItem(item);
     console.log("Added to order:", item);
-    // You might want to show a message to the user here (e.g., using a toast or alert)
   };
 
+  // Handle order form submission
+  const handleOrderSubmit = (orderData) => {
+    console.log("Order submitted:", orderData);
+    setOrder([...order, orderData]);
+    setActiveItem(null); // Reset active item after submission
+  };
+
+  // Filter menu items based on selected category
   const filteredItems =
     selectedCategory === "All"
       ? Object.values(menuData).flat()
       : menuData[selectedCategory] || [];
 
-  const displayedItems = showAll ? filteredItems.slice(0, 8) : filteredItems.slice(0, 4);
+  // Show more or less items
+  const displayedItems = showAll ? filteredItems : filteredItems.slice(0, 6);
 
   if (loading) {
     return (
@@ -111,6 +116,7 @@ const ViewMenus = () => {
             Delicious meals prepared fresh for you
           </p>
 
+          {/* Category Buttons */}
           <div className="view-menu-categories">
             {categories.map((category) => (
               <button
@@ -120,13 +126,15 @@ const ViewMenus = () => {
                 }`}
                 onClick={() => {
                   setSelectedCategory(category);
-                  setShowAll(false);
+                  setShowAll(false); // Reset "Show More" when a new category is selected
                 }}
               >
                 {category}
               </button>
             ))}
           </div>
+
+          {/* Menu Items */}
           {filteredItems.length === 0 ? (
             <p className="no-menu-message">
               Currently there are no menus in this category.
@@ -148,7 +156,7 @@ const ViewMenus = () => {
                       <p>{item.description}</p>
                       <span className="view-menu-price">₹{item.price}</span>
                       <button
-                        className="add-to-order-btn" // Added class for styling
+                        className="add-to-order-btn"
                         onClick={() => handleAddToOrder(item)}
                       >
                         Add to Order
@@ -158,7 +166,8 @@ const ViewMenus = () => {
                 ))}
               </div>
 
-              {filteredItems.length > 4 && (
+              {/* Show more/less button */}
+              {filteredItems.length > 6 && (
                 <div className="view-all-container">
                   <button
                     className="view-all-btn"
@@ -172,6 +181,23 @@ const ViewMenus = () => {
           )}
         </div>
       </section>
+
+      {/* Order Form */}
+      {activeItem && (
+        <div className="order-form-container">
+          <OrderPage
+            onSubmit={handleOrderSubmit}
+            prefill={{
+              ...activeItem,
+              tableId: "", // Set your default values here
+              staffId: "",
+              quantity: 1,
+              totalAmt: activeItem.price, // Calculate total amount based on menu item
+              orderStatus: "Placed", // Default order status
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
