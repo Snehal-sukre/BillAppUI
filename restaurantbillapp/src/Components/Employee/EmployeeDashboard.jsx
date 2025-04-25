@@ -16,12 +16,14 @@ const EmployeeDashboard = () => {
   const [dropdownOpen, setDropdownOpen] = useState({
     menu: false,
     orders: false,
+    tables: false, // Added for tables
   });
 
   const toggleDropdown = (key) => {
     setDropdownOpen({
       menu: false,
       orders: false,
+      tables: false, // Make sure other dropdowns are closed
       [key]: !dropdownOpen[key],
     });
   };
@@ -39,6 +41,23 @@ const EmployeeDashboard = () => {
             <FaHome className="menu-icon" />
             Dashboard
           </NavLink>
+        </li>
+
+        {/* Dining Tables Dropdown */}
+        <li>
+          <div className="menu-item" onClick={() => toggleDropdown("tables")}>
+            <FaChair className="menu-icon" />
+            Dining Tables
+          </div>
+          {dropdownOpen.tables && (
+            <ul className="submenu">
+              <li>
+                <NavLink to="/staff/viewtables" className="submenu-link">
+                  View Tables
+                </NavLink>
+              </li>
+            </ul>
+          )}
         </li>
 
         {/* Menu Dropdown */}
