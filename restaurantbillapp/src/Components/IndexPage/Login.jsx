@@ -31,10 +31,12 @@ const Login = () => {
 
       if (matchedStaff) {
         setErrorMessage('');
+        localStorage.setItem('staffId', matchedStaff.id); // Save staff ID to localStorage
         navigate('/staff');
       } else {
         setErrorMessage('Invalid credentials. Please contact admin for access.');
       }
+      
     } catch (error) {
       console.error(error);
       setErrorMessage('Server error. Please try again later.');
