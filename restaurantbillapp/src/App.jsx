@@ -49,7 +49,9 @@ function App() {
         <Route index element={<EmployeeHome />} />
         <Route path="viewtables" element={<ViewTable/>}/>
         <Route path="viewmenu" element={<ViewMenus/>}/>
+        <Route path="viewmenu/:tableid" element={<ViewMenus/>}/>
         <Route path="vieworders" element={<OrderPage/>}/>
+        <Route path="viewmenu/:tableid/vieworders" element={<OrderPage/>}/>
         </Route>
 
       </Routes>

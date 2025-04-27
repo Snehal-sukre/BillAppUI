@@ -45,54 +45,30 @@ const EmployeeDashboard = () => {
 
         {/* Dining Tables Dropdown */}
         <li>
-          <div className="menu-item" onClick={() => toggleDropdown("tables")}>
-            <FaChair className="menu-icon" />
-            Dining Tables
-          </div>
-          {dropdownOpen.tables && (
-            <ul className="submenu">
-              <li>
-                <NavLink to="/staff/viewtables" className="submenu-link">
-                  View Tables
-                </NavLink>
-              </li>
-            </ul>
-          )}
-        </li>
+  <NavLink to="/staff/viewtables" className="menu-item">
+    <FaChair className="menu-icon" />
+    Dining Tables
+  </NavLink>
+</li>
+
 
         {/* Menu Dropdown */}
         <li>
-          <div className="menu-item" onClick={() => toggleDropdown("menu")}>
-            <MdFastfood className="menu-icon" />
-            Menu
-          </div>
-          {dropdownOpen.menu && (
-            <ul className="submenu">
-              <li>
-                <NavLink to="/staff/viewmenu" className="submenu-link">
-                  View Menu
-                </NavLink>
-              </li>
-            </ul>
-          )}
-        </li>
+  <NavLink to="/staff/viewmenu" className="menu-item">
+    <MdFastfood className="menu-icon" />
+    Menus
+  </NavLink>
+</li>
+
 
         {/* Orders Dropdown */}
         <li>
-          <div className="menu-item" onClick={() => toggleDropdown("orders")}>
-            <GiMeal className="menu-icon" />
-            Orders
-          </div>
-          {dropdownOpen.orders && (
-            <ul className="submenu">
-              <li>
-                <NavLink to="/staff/vieworders" className="submenu-link">
-                  View Orders
-                </NavLink>
-              </li>
-            </ul>
-          )}
-        </li>
+  <NavLink to="/staff/vieworders" className="menu-item">
+    <GiMeal className="menu-icon" />
+    View Orders
+  </NavLink>
+</li>
+
 
         {/* Invoice */}
         <li>

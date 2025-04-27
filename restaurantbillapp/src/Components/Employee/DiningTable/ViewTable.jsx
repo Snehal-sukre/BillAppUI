@@ -1,35 +1,33 @@
+// ViewTable.jsx
 import React, { useEffect, useState } from 'react';
-import DiningTableService from "./DiningTableService";
+import DiningTableService from './DiningTableService';
 import './Dining.css';
 import { useNavigate } from 'react-router-dom';
 
 const ViewTable = () => {
-  const [tables, setTables] = useState([]);  // Store table data
-  const navigate = useNavigate();  // Hook for navigation
+  const [tables, setTables] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch tables from DiningTableService
     DiningTableService.getTables()
       .then((response) => {
-        setTables(response.data);  // Update state with tables
+        setTables(response.data);
       })
       .catch((error) => {
         console.error('Error fetching tables:', error);
       });
   }, []);
 
-  // Handle redirection to the "ViewMenus" page when "Take Order" is clicked
   const handleTakeOrder = (tableId) => {
-    navigate(`/staff/viewmenu/${tableId}`);  // Correct path to pass the tableId
+    localStorage.setItem('selectedTableId', tableId); // Save tableId to localStorage
+    navigate(`/staff/viewmenu/${tableId}`); // Navigate with tableId as URL param too
   };
 
-  // Separate available and occupied tables
-  const availableTables = tables.filter(table => table.availability.toLowerCase() === 'available');
-  const occupiedTables = tables.filter(table => table.availability.toLowerCase() === 'occupied');
+  const availableTables = tables.filter((table) => table.availability.toLowerCase() === 'available');
+  const occupiedTables = tables.filter((table) => table.availability.toLowerCase() === 'occupied');
 
   return (
     <div className="tables-wrapper">
-      {/* Display available tables */}
       <div className="table-column">
         <h2 className="view-tables-title">Available Tables</h2>
         <div className="view-tables-grid">
@@ -39,7 +37,7 @@ const ViewTable = () => {
               <p>Capacity : {table.capacity} people</p>
               <button
                 className="take-order-btn"
-                onClick={() => handleTakeOrder(table.id)}  // Correct function call
+                onClick={() => handleTakeOrder(table.id)}
               >
                 Take Order
               </button>
@@ -48,7 +46,6 @@ const ViewTable = () => {
         </div>
       </div>
 
-      {/* Display occupied tables */}
       <div className="table-column">
         <h2 className="view-tables-title">Occupied Tables</h2>
         <div className="view-tables-grid">
