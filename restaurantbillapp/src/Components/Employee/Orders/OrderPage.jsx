@@ -58,14 +58,16 @@ const OrderPage = ({
 
             // Prepare the order data
             const orderData = {
-              ...activeItem,
+              menuId: activeItem.id,  // 🛑 You missed this earlier
+              tableId: tableId,
               staffId: staffId,
+              ordDate: orderDate,
               quantity: activeItem.quantity || 1,
               totalAmt: (activeItem.price || 0) * (activeItem.quantity || 1),
               orderStatus: orderStatus,
-              orderDate: orderDate, // use selected or default date
-              tableId: tableId,
             };
+            
+            
 
             // Call the function to save order to database
             handleOrderSubmitToDb(orderData);
@@ -116,7 +118,7 @@ const OrderPage = ({
             <label>Staff ID</label>
             <input
               type="text"
-              value={staffId}
+              value={staffId} readOnly
               onChange={(e) => setStaffId(e.target.value)}
               required
             />

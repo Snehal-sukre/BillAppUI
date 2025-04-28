@@ -141,15 +141,17 @@ let UpdateMenu = () => {
           </div>
 
           <div className="form-group">
-            <label>Current Menu Image</label>
-            {menu.image && typeof menu.image === 'string' && (
-              <img
-                src={`http://localhost:8080${menu.image}`}
-                alt={menu.name}
-                style={{ maxWidth: '100px', maxHeight: '100px', display: 'block', marginBottom: '10px' }}
-              />
-            )}
-          </div>
+  <label>Current Menu Image</label>
+  {menu.image && typeof menu.image === 'string' && menu.image !== "" && (
+    <img
+      src={`http://localhost:8080${menu.image}`}
+      alt={menu.name}
+      style={{ maxWidth: '100px', maxHeight: '100px', display: 'block', marginBottom: '10px' }}
+    />
+  )}
+  {!menu.image && <p>No image uploaded</p>}
+</div>
+
 
           <div className="form-group">
             <label>Upload New Menu Image (Optional)</label>
