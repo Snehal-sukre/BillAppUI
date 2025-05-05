@@ -1,0 +1,113 @@
+.staff-orders-wrapper {
+  padding: 20px;
+  background-color: #f8f9fa;
+  margin-left: 300px;
+}
+
+/* Heading */
+.staff-orders-heading {
+  text-align: center;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+/* Side-by-side layout */
+.staff-orders-table-layout {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Each section: Pending or Completed */
+.staff-orders-section {
+  flex: 1;
+  min-width: 45%;
+}
+
+/* Section title */
+.staff-orders-section h3 {
+  text-align: center;
+  color: #212529;
+  margin-bottom: 15px;
+}
+
+.staff-order-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  gap: 20px;
+}
+
+/* Order card */
+.staff-order-card {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.staff-order-card h4,
+.staff-order-card p {
+  margin: 6px 0;
+}
+
+/* Item table */
+.staff-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.staff-items-table th,
+.staff-items-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+/* View Bill button */
+.staff-generate-bill-btn {
+  background-color: #ff4d00;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.staff-generate-bill-btn:hover {
+  background-color: #e03e00;
+}
+
+/* Messages */
+.staff-orders-loading,
+.staff-orders-error,
+.staff-orders-empty {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* ----------------- */
+/* RESPONSIVE STYLES */
+/* ----------------- */
+@media (max-width: 768px) {
+  .staff-orders-table-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .staff-orders-section {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .staff-order-cards-grid {
+    grid-template-columns: 1fr; /* 1 card per row on small screens */
+  }
+}

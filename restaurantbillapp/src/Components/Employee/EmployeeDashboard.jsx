@@ -63,7 +63,7 @@ const EmployeeDashboard = () => {
 
         {/* Orders Dropdown */}
         <li>
-  <NavLink to="/staff/vieworders" className="menu-item">
+  <NavLink to="/staff/viewstafforders" className="menu-item">
     <GiMeal className="menu-icon" />
     View Orders
   </NavLink>

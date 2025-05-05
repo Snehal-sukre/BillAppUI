@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let saveOrder="http://localhost:8080/addOrder";
+let saveOrder="http://localhost:8080/placeOrder";
 
 class OrderService
 {

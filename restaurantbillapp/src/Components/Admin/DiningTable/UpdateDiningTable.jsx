@@ -72,7 +72,7 @@ const UpdateDiningTable = () => {
 
           {msg && <p className="message">{msg}</p>}
 
-          <button type="submit" className="submit-btn">Add Table</button>
+          <button type="submit" className="submit-btn">Update Table</button>
         </form>
       </div>
     </div>

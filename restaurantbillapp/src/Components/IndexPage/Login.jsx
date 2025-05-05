@@ -31,7 +31,8 @@ const Login = () => {
 
       if (matchedStaff) {
         setErrorMessage('');
-        localStorage.setItem('staffId', matchedStaff.id); // Save staff ID to localStorage
+        localStorage.setItem('staffId', matchedStaff.id); 
+        localStorage.setItem('staffName', matchedStaff.name); // Save staff name to localStorage
         navigate('/staff');
       } else {
         setErrorMessage('Invalid credentials. Please contact admin for access.');
