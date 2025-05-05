@@ -27,6 +27,8 @@ import GenerateBill from "./Components/Admin/Bill/GenerateBill";
 import ViewBill from "./Components/Admin/Bill/ViewBill";
 import ViewStaffBill from "./Components/Employee/Bill/ViewStaffBill";
 import ViewAllBills from "./Components/Admin/Bill/ViewAllBills";
+import DailyOrdersReport from "./Components/Admin/Reports/DailyOrdersReport";
+import TopOrderedFoodItems from "./Components/Admin/Reports/TopOrderedFoodItems";
 
 function App() {
   return (
@@ -53,6 +55,8 @@ function App() {
            <Route path="viewBill/:orderId" element={<ViewBill/>}/>
            <Route path="generateBill/:orderId" element={<GenerateBill />} />
            <Route path="bill" element={<ViewAllBills/>}/>
+           <Route path="dailyorders" element={<DailyOrdersReport/>}/>
+           <Route path="toporderitems" element={<TopOrderedFoodItems/>}/>
         </Route>
 
         <Route path="/staff" element={<EmployeeLayout/>}>
