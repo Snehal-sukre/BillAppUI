@@ -64,7 +64,7 @@ ul li
 }
 
 .submenu {
-  margin-left: 25px;
+  margin-left: 15px;
   margin-top: 5px;
   padding-left: 10px;
   border-left: 2px solid #f3f3f3;
@@ -74,7 +74,7 @@ ul li
 .submenu-link {
   display: block;
   color: #333;
-  font-size: 1.1em;
+  font-size: 1em;
   padding: 5px 0;
   text-decoration: none;
   transition: color 0.3s ease;

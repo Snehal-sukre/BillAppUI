@@ -161,13 +161,28 @@ const AdminDashboard = () => {
           </NavLink>
         </li>
 
-        {/* Reports */}
-        <li>
-          <NavLink to="/admin/reports" className="menu-item">
-            <FaChartBar className="menu-icon" />
-            Reports
-          </NavLink>
-        </li>
+        {/* Reports Dropdown */}
+<li>
+  <div className="menu-item" onClick={() => toggleDropdown("reports")}>
+    <FaChartBar className="menu-icon" />
+    Reports
+  </div>
+  {dropdownOpen.reports && (
+    <ul className="submenu">
+      <li>
+        <NavLink to="/admin/dailyorders" className="submenu-link">
+          Daily Orders Report
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/toporderitems" className="submenu-link">
+          Top Ordered Items
+        </NavLink>
+      </li>
+    </ul>
+  )}
+</li>
+
       </ul>
     </div>
   );
