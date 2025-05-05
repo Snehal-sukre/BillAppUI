@@ -13,13 +13,15 @@ const EmployeeHome = () => {
   const totalMenus = 15;
   const totalCategories = 5;
 
+  const staffName = localStorage.getItem('staffName');
+
   return (
     <div className="main-content">
       <div className="admin-dashboard">
 
         {/* ===== Staff Welcome Header ===== */}
         <div className="admin-header">
-          <h2 className="admin-heading">Welcome to Staff Dashboard</h2>
+        <h2 className="admin-heading">Welcome {staffName} to Staff Dashboard</h2>
           <button className="logout-btn" onClick={() => window.location.href = "/"}>
             Logout
           </button>

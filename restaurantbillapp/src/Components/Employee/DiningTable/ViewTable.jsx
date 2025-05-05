@@ -8,7 +8,7 @@ const ViewTable = () => {
   const [tables, setTables] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchTables = () => {
     DiningTableService.getTables()
       .then((response) => {
         setTables(response.data);
@@ -16,6 +16,10 @@ const ViewTable = () => {
       .catch((error) => {
         console.error('Error fetching tables:', error);
       });
+  };
+
+  useEffect(() => {
+    fetchTables(); // Fetch tables on component mount
   }, []);
 
   const handleTakeOrder = (tableId) => {
@@ -23,8 +27,8 @@ const ViewTable = () => {
     navigate(`/staff/viewmenu/${tableId}`); // Navigate with tableId as URL param too
   };
 
-  const availableTables = tables.filter((table) => table.availability.toLowerCase() === 'available');
-  const occupiedTables = tables.filter((table) => table.availability.toLowerCase() === 'occupied');
+  const availableTables = tables.filter((table) => table.availability?.toLowerCase() === 'available');
+  const occupiedTables = tables.filter((table) => table.availability?.toLowerCase() === 'occupied');
 
   return (
     <div className="tables-wrapper">

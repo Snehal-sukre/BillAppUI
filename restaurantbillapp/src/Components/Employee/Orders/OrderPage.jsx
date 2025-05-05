@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import OrderService from "./OrderService"; // Make sure to import the OrderService
+// OrderPage.jsx
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./OrderPage.css";
 
 const OrderPage = ({
   activeItem,
@@ -12,186 +14,150 @@ const OrderPage = ({
   handleQuantityChange,
   orderItems,
   handleRemoveOrderItem,
-  handlePlaceOrder,
 }) => {
-  // Calculate total order amount
-  const totalOrderAmount = orderItems.reduce((sum, item) => sum + item.totalAmt, 0);
+  const [ordDate, setOrdDate] = useState("");
 
-  // Set current date in YYYY-MM-DD format
-  const [orderDate, setOrderDate] = useState(() => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = (today.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
-    const dd = today.getDate().toString().padStart(2, '0'); // Ensure two digits
-    return `${yyyy}-${mm}-${dd}`;
-  });
+  useEffect(() => {
+    const savedStaffId = localStorage.getItem("staffId");
+    if (savedStaffId) {
+      setStaffId(savedStaffId);
+    }
 
-  // Handle adding order to database
-  const handleOrderSubmitToDb = async (orderData) => {
+    const today = new Date().toISOString().split("T")[0];
+    setOrdDate(today);
+  }, [setStaffId]);
+
+  const handleConfirmItem = () => {
+    if (!activeItem) return;
+
+    const newItem = {
+      ...activeItem,
+      quantity: activeItem.quantity,
+      totalAmt: activeItem.quantity * activeItem.price,
+    };
+
+    handleOrderSubmit(newItem);
+  };
+
+  const submitOrderToBackend = async () => {
+    const payload = {
+      tableId: parseInt(tableId),
+      staffId: parseInt(staffId),
+      ordDate: ordDate,
+      ordStatus: orderStatus,
+      orderItems: orderItems.map((item) => ({
+        menuId: item.id,
+        quantity: item.quantity,
+        totalAmt: item.totalAmt,
+      })),
+    };
+
     try {
-      // Call the API to save the order
-      const response = await OrderService.createOrder(orderData);
-      if (response.status === 200) {
-        alert("Order added successfully!");
-        handleOrderSubmit(orderData); // Update order items in parent component
-      } else {
-        alert("Failed to add the order.");
+      const response = await axios.post("http://localhost:8080/placeOrder", payload);
+      alert("Order submitted successfully!");
+      console.log("Response:", response.data);
+
+      console.log("Attempting to update table availability for table ID:", tableId);
+
+      try {
+        const updateResponse = await axios.put(
+          `http://localhost:8080/${tableId}/availability`, // Updated URL
+          'occupied', // Sending the availability as a string in the request body
+          {
+            headers: {
+              'Content-Type': 'text/plain', // Or 'application/json' if your backend expects JSON
+            },
+          }
+        );
+        console.log(`Table ${tableId} updated to occupied. Update Response:`, updateResponse.data);
+      } catch (error) {
+        console.error(`Error updating table ${tableId} availability:`, error);
+        alert(`Error updating table ${tableId} status: ${error?.response?.data || error.message}`);
       }
     } catch (error) {
-      console.error("Error saving order:", error);
-      alert("Error occurred while placing the order.");
+      alert("Failed to submit order!");
+      console.error("Order submission error:", error);
+    }
+  };
+
+  const handleQuantityIncrement = () => {
+    if (activeItem) {
+      handleQuantityChange(activeItem.id, activeItem.quantity + 1);
+    }
+  };
+
+  const handleQuantityDecrement = () => {
+    if (activeItem && activeItem.quantity > 1) {
+      handleQuantityChange(activeItem.id, activeItem.quantity - 1);
     }
   };
 
   return (
-    <div className="order-page">
-      {/* Active Item Form */}
+    <div className="order-page-container">
+      <h2>Current Order</h2>
+
+      <div className="order-info">
+        <p>
+          <strong>Table ID:</strong> {tableId}
+        </p>
+        <p>
+          <strong>Date:</strong> {ordDate}
+        </p>
+      </div>
+
       {activeItem && (
-        <form
-          className="order-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!staffId.trim()) {
-              alert("Please enter Staff ID before adding to order.");
-              return;
-            }
-
-            // Prepare the order data
-            const orderData = {
-              menuId: activeItem.id,  // 🛑 You missed this earlier
-              tableId: tableId,
-              staffId: staffId,
-              ordDate: orderDate,
-              quantity: activeItem.quantity || 1,
-              totalAmt: (activeItem.price || 0) * (activeItem.quantity || 1),
-              orderStatus: orderStatus,
-            };
-            
-            
-
-            // Call the function to save order to database
-            handleOrderSubmitToDb(orderData);
-          }}
-        >
-          <h2>Order for Table {tableId}</h2>
-
-          <div className="form-group">
-            <label>Item Name</label>
-            <input type="text" value={activeItem.name} readOnly />
-          </div>
-
-          <div className="form-group quantity-group">
-            <label>Quantity</label>
-            <div className="quantity-buttons">
-              <button
-                type="button"
-                onClick={() =>
-                  handleQuantityChange(
-                    activeItem.id,
-                    (activeItem.quantity || 1) - 1
-                  )
-                }
-              >
-                ➖
+        <div className="active-order-form">
+          <h4>Add Item to Order</h4>
+          <p>
+            <strong>{activeItem.name}</strong> - ₹{activeItem.price}
+          </p>
+          <label>
+            Quantity:
+            <div className="quantity-control">
+              <button className="quantity-btn" onClick={handleQuantityDecrement}>
+                -
               </button>
-              <input type="text" value={activeItem.quantity || 1} readOnly />
-              <button
-                type="button"
-                onClick={() =>
-                  handleQuantityChange(
-                    activeItem.id,
-                    (activeItem.quantity || 1) + 1
-                  )
-                }
-              >
-                ➕
+              <input
+                type="number"
+                min="1"
+                value={activeItem.quantity}
+                onChange={(e) => handleQuantityChange(activeItem.id, parseInt(e.target.value))}
+                className="quantity-input"
+              />
+              <button className="quantity-btn" onClick={handleQuantityIncrement}>
+                +
               </button>
             </div>
-          </div>
-
-          <div className="form-group">
-            <label>Table ID</label>
-            <input type="text" value={tableId} readOnly />
-          </div>
-
-          <div className="form-group">
-            <label>Staff ID</label>
-            <input
-              type="text"
-              value={staffId} readOnly
-              onChange={(e) => setStaffId(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Order Status</label>
-            <select
-              value={orderStatus}
-              onChange={(e) => setOrderStatus(e.target.value)}
-              required
-            >
-              <option value="Preparing">Preparing</option>
-              <option value="Served">Served</option>
-              <option value="Completed">Completed</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Total Amount</label>
-            <input
-              type="text"
-              value={(activeItem.price || 0) * (activeItem.quantity || 1)}
-              readOnly
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Order Date</label>
-            <input
-              type="date"
-              value={orderDate}
-              onChange={(e) => setOrderDate(e.target.value)}
-              required
-            />
-          </div>
-
-          <button type="submit" className="submit-order-btn">
-            Add to Order
+          </label>
+          <p>Total: ₹{activeItem.quantity * activeItem.price}</p>
+          <button className="confirm-item-btn" onClick={handleConfirmItem}>
+            Confirm Item
           </button>
-        </form>
+        </div>
       )}
 
-      {/* Display list of added items */}
+      <h3>Order Items</h3>
+      {orderItems.length === 0 ? (
+        <p>No items added yet.</p>
+      ) : (
+        <ul className="order-items-list">
+          {orderItems.map((item, index) => (
+            <li key={index} className="order-item">
+              <span>
+                {item.name} (x{item.quantity}) - ₹{item.totalAmt}
+              </span>
+              <button className="remove-btn" onClick={() => handleRemoveOrderItem(index)}>
+                ❌
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
       {orderItems.length > 0 && (
-        <div className="order-summary">
-          <h2>Current Order</h2>
-          <ul>
-            {orderItems.map((order, index) => (
-              <li key={index} className="order-item">
-                {order.name} × {order.quantity} = ₹{order.totalAmt} ({order.orderStatus})
-                <button
-                  className="remove-item-btn"
-                  onClick={() => handleRemoveOrderItem(index)}
-                >
-                  ❌
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <div className="form-group">
-            <label>Total Order Amount</label>
-            <input type="text" value={totalOrderAmount} readOnly />
-          </div>
-
-          <div className="form-group">
-            <label>Order Date</label>
-            <input type="date" value={orderDate} readOnly />
-          </div>
-
-          <button className="place-order-btn" onClick={handlePlaceOrder}>
-            Place Order
+        <div className="place-order-actions">
+          <button className="submit-backend-btn" onClick={submitOrderToBackend}>
+            Submit Order
           </button>
         </div>
       )}

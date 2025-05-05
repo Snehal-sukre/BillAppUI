@@ -18,21 +18,21 @@ const Contact = () => {
         <div className="footer-box">
           <FaMapMarkerAlt className="footer-icon" />
           <h4>Address</h4>
-          <p>A108 Adam Street<br />New York, NY 535022</p>
+          <p>Near Kakade City<br />KarveNager, Pune 411052</p>
         </div>
 
         <div className="footer-box">
           <FaPhoneAlt className="footer-icon" />
           <h4>Contact</h4>
-          <p><strong>Phone:</strong> +1 5589 55488 55<br />
-             <strong>Email:</strong> info@example.com</p>
+          <p><strong>Phone:</strong> +91 8789 5548 55<br />
+             <strong>Email:</strong> foodieskitchen@gmail.com</p>
         </div>
 
         <div className="footer-box">
           <FaClock className="footer-icon" />
           <h4>Opening Hours</h4>
           <p><strong>Mon-Sat:</strong> 11AM - 23PM<br />
-             <strong>Sunday:</strong> Closed</p>
+             <strong>Sunday:</strong> 9AM - 23PM</p>
         </div>
 
         <div className="footer-box">
@@ -49,7 +49,7 @@ const Contact = () => {
       {/* 👇 Footer Bottom */}
       <div className="footer-bottom">
         <p>© Copyright <strong>Foodies Kitchen</strong> All Rights Reserved</p>
-        <p>Designed by <span className="red">Snehal Sukre</span> Distributed by <span className="red">ThemeWagon</span></p>
+        <p>Designed by <span className="red">Snehal Sukre</span> Distributed by <span className="red">Software Company</span></p>
       </div>
     </footer>
   );

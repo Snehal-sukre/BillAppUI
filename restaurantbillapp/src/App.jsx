@@ -21,6 +21,12 @@ import EmployeeLayout from "./Components/Employee/EmployeeLayout";
 import ViewMenus from "./Components/Employee/Menus/ViewMenus";
 import OrderPage from "./Components/Employee/Orders/OrderPage";
 import ViewTable from "./Components/Employee/DiningTable/ViewTable";
+import ViewOrders from "./Components/Admin/Orders/ViewOrders";
+import ViewStaffOrders from "./Components/Employee/Orders/ViewStaffOrders";
+import GenerateBill from "./Components/Admin/Bill/GenerateBill";
+import ViewBill from "./Components/Admin/Bill/ViewBill";
+import ViewStaffBill from "./Components/Employee/Bill/ViewStaffBill";
+import ViewAllBills from "./Components/Admin/Bill/ViewAllBills";
 
 function App() {
   return (
@@ -43,6 +49,10 @@ function App() {
            <Route path="addtable" element={<AddDiningTable/>}/>
            <Route path="viewtable" element={<ViewDiningTable/>} />
            <Route path="updtable/:tableid" element={<UpdateDiningTable/>}/>
+           <Route path="vieworders" element={<ViewOrders/>} />
+           <Route path="viewBill/:orderId" element={<ViewBill/>}/>
+           <Route path="generateBill/:orderId" element={<GenerateBill />} />
+           <Route path="bill" element={<ViewAllBills/>}/>
         </Route>
 
         <Route path="/staff" element={<EmployeeLayout/>}>
@@ -52,6 +62,8 @@ function App() {
         <Route path="viewmenu/:tableid" element={<ViewMenus/>}/>
         <Route path="vieworders" element={<OrderPage/>}/>
         <Route path="viewmenu/:tableid/vieworders" element={<OrderPage/>}/>
+        <Route path="viewstafforders" element={<ViewStaffOrders/>}/>
+        <Route path="viewStaffBill/:orderId" element={<ViewStaffBill/>}/>
         </Route>
 
       </Routes>
