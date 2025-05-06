@@ -9,6 +9,7 @@ const ViewStaffOrders = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCompleted, setShowCompleted] = useState(false); // default to pending
   const navigate = useNavigate();
 
   const staffId = localStorage.getItem('staffId');
@@ -72,91 +73,108 @@ const ViewStaffOrders = () => {
   return (
     <div className="staff-orders-wrapper">
       <h2 className="staff-orders-heading">Your Orders</h2>
+
+      {/* Buttons for toggling view */}
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+        <button
+          onClick={() => setShowCompleted(false)}
+          className={showCompleted ? "" : "active-tab"}
+        >
+          View Pending Orders
+        </button>
+        <button
+          onClick={() => setShowCompleted(true)}
+          className={showCompleted ? "active-tab" : ""}
+        >
+          View Completed Orders
+        </button>
+      </div>
+
+      {/* Show only the selected order type */}
       <div className="staff-orders-table-layout">
-
-        {/* Pending Orders */}
-        <div className="staff-orders-section">
-          <h3>Pending Orders</h3>
-          {pendingOrders.length > 0 ? (
-            <div className="staff-order-cards-grid">
-              {pendingOrders.map(order => (
-                <div key={order.orderId} className="staff-order-card">
-                  <h4>Order ID: {order.orderId}</h4>
-                  <p>Table ID: {order.tableId}</p>
-                  <p>Staff: {order.staffName}</p>
-                  <p>Date: {new Date(order.ordDate).toLocaleDateString()}</p>
-                  <p>Status: {order.orderStatus}</p>
-                  <h5>Items:</h5>
-                  <table className="staff-items-table">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Price (₹)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.items.map((item, index) => (
-                        <tr key={index}>
-                          <td>{item.itemName}</td>
-                          <td>{item.quantity}</td>
-                          <td>{item.price}</td>
+        {showCompleted ? (
+          <div className="staff-orders-section">
+            <h3>Completed Orders</h3>
+            {completedOrders.length > 0 ? (
+              <div className="staff-order-cards-grid">
+                {completedOrders.map(order => (
+                  <div key={order.orderId} className="staff-order-card">
+                    <h4>Order ID: {order.orderId}</h4>
+                    <p>Table ID: {order.tableId}</p>
+                    <p>Staff: {order.staffName}</p>
+                    <p>Date: {new Date(order.ordDate).toLocaleDateString()}</p>
+                    <p>Status: {order.orderStatus}</p>
+                    <h5>Items:</h5>
+                    <table className="staff-items-table">
+                      <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Qty</th>
+                          <th>Price (₹)</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No pending orders.</p>
-          )}
-        </div>
-
-        {/* Completed Orders */}
-        <div className="staff-orders-section">
-          <h3>Completed Orders</h3>
-          {completedOrders.length > 0 ? (
-            <div className="staff-order-cards-grid">
-              {completedOrders.map(order => (
-                <div key={order.orderId} className="staff-order-card">
-                  <h4>Order ID: {order.orderId}</h4>
-                  <p>Table ID: {order.tableId}</p>
-                  <p>Staff: {order.staffName}</p>
-                  <p>Date: {new Date(order.ordDate).toLocaleDateString()}</p>
-                  <p>Status: {order.orderStatus}</p>
-                  <h5>Items:</h5>
-                  <table className="staff-items-table">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Price (₹)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.items.map((item, index) => (
-                        <tr key={index}>
-                          <td>{item.itemName}</td>
-                          <td>{item.quantity}</td>
-                          <td>{item.price}</td>
+                      </thead>
+                      <tbody>
+                        {order.items.map((item, index) => (
+                          <tr key={index}>
+                            <td>{item.itemName}</td>
+                            <td>{item.quantity}</td>
+                            <td>{item.price}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <button
+                      onClick={() => handleViewBill(order.orderId)}
+                      className="staff-generate-bill-btn"
+                    >
+                      View Bill
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No completed orders.</p>
+            )}
+          </div>
+        ) : (
+          <div className="staff-orders-section">
+            <h3>Pending Orders</h3>
+            {pendingOrders.length > 0 ? (
+              <div className="staff-order-cards-grid">
+                {pendingOrders.map(order => (
+                  <div key={order.orderId} className="staff-order-card">
+                    <h4>Order ID: {order.orderId}</h4>
+                    <p>Table ID: {order.tableId}</p>
+                    <p>Staff: {order.staffName}</p>
+                    <p>Date: {new Date(order.ordDate).toLocaleDateString()}</p>
+                    <p>Status: {order.orderStatus}</p>
+                    <h5>Items:</h5>
+                    <table className="staff-items-table">
+                      <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Qty</th>
+                          <th>Price (₹)</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <button
-                    onClick={() => handleViewBill(order.orderId)}
-                    className="staff-generate-bill-btn"
-                  >
-                    View Bill
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No completed orders.</p>
-          )}
-        </div>
+                      </thead>
+                      <tbody>
+                        {order.items.map((item, index) => (
+                          <tr key={index}>
+                            <td>{item.itemName}</td>
+                            <td>{item.quantity}</td>
+                            <td>{item.price}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No pending orders.</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

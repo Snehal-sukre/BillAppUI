@@ -1,20 +1,63 @@
 /* Existing Bill Container styles */
-.bill-container {
-  width: 400px;
+.all-bills-page{
+  margin-left: 300px;
+}
+
+.generate-bill-container
+{
+  width: 350px; /* Reduced width from 400px */
   margin: auto;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
+  font-family: 'Courier New', monospace; 
+  font-size: 14px; /* Reduced font size from 14px */
   background: white;
-  padding: 20px;
+  padding: 15px; /* Reduced padding */
   border: 1px solid #000;
-  margin-left: 500px;
+  margin-left: 600px;
+  color: black;
+}
+
+.bill-container-single-bill
+{
+  width: 350px; /* Reduced width from 400px */
+  margin: auto;
+  font-family: 'Courier New', monospace; 
+  font-size: 14px; /* Reduced font size from 14px */
+  background: white;
+  padding: 15px; /* Reduced padding */
+  border: 1px solid #000;
+  margin-left: 670px;
+  color: black; 
+}
+
+.staff-bill-container
+{
+  width: 350px; /* Reduced width from 400px */
+  margin: auto;
+  font-family: 'Courier New', monospace; 
+  font-size: 14px; /* Reduced font size from 14px */
+  background: white;
+  padding: 15px; /* Reduced padding */
+  border: 1px solid #000;
+  margin-left: 670px;
+  color: black;
+}
+
+.bill-container {
+  width: 350px; /* Reduced width from 400px */
+  margin: auto;
+  font-family: 'Courier New', monospace; 
+  font-size: 12px; /* Reduced font size from 14px */
+  background: white;
+  padding: 15px; /* Reduced padding */
+  border: 1px solid #000;
+  color: black;
 }
 
 /* Center Text Alignment */
 .center-text {
   text-align: center;
   margin: 2px 0;
-} 
+}
 
 /* Item Table styles */
 .item-table {
@@ -26,92 +69,144 @@
 .item-table th,
 .item-table td {
   border: 1px solid #000;
-  padding: 4px 6px;
+  padding: 3px 5px; /* Reduced padding in table cells */
   text-align: center;
 }
 
 /* View Bill Container styling (if used) */
 .view-bill-container {
-max-width: 600px;
-margin: 20px auto;
-padding: 20px;
-border-radius: 10px;
-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-background: #f9f9f9;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
+  color: black;
 }
 
 /* Form Group (if used for input) */
 .form-group {
-display: flex;
-gap: 10px;
-margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 input[type="number"] {
-flex: 1;
-padding: 8px;
-border: 1px solid #ccc;
-border-radius: 5px;
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 /* Button styles */
 button {
-padding: 8px 16px;
-background-color: #ff4d00;
-color: white;
-border: none;
-border-radius: 5px;
-cursor: pointer;
+  padding: 8px 16px;
+  background-color: #ff4d00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-background-color: #ff4d00;
+  background-color: #ff4d00;
 }
 
 /* Bill Details Styling */
 .bill-details {
-background: #fff;
-padding: 15px;
-border-radius: 8px;
-border: 1px solid #ddd;
+  background: #fff;
+  padding: 12px; /* Reduced padding */
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
 /* Error message styling */
 .error {
-color: red;
-font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
-/* New class to make a grid layout for displaying 2 bills per row */
+/* New class to make a grid layout for displaying 3 bills per row */
 .bill-row {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); /* Ensures two bills per row */
-gap: 20px; /* Adds space between the bills */
-margin: 20px;
-padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 bills per row */
+  gap: 20px; /* Adds space between the bills */
+  margin: 20px;
+  padding: 10px;
 }
 
-.print-bill-btn
-{
+/* Button to print bill */
+.print-bill-btn {
   background-color: #ccc;
   color: black;
 }
 
 @media print {
-  button {
+  /* Hide everything except the bill */
+  body * {
+    visibility: hidden;
+  }
+
+  .generate-bill-container, .generate-bill-container * {
+    visibility: visible; /* Make bill content visible */
+  }
+  .bill-container-single-bill, .bill-container-single-bill *{
+    visibility: visible;
+  }
+
+  .bill-container-single-bill
+  {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-240%, -50%); /* Proper centering */
+    width: 350px; /* Ensure the width is consistent */
+    padding: 15px; /* Maintain padding */
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    border: 1px solid #000;
+    color: black;
+  }
+  /* Center the bill on the page */
+  .generate-bill-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-220%, -50%); /* Proper centering */
+    width: 350px; /* Ensure the width is consistent */
+    padding: 15px; /* Maintain padding */
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    border: 1px solid #000; /* Optional, add border for better visibility */
+  }
+
+  /* Hide the print button during printing */
+  .print-bill-btn {
     display: none;
   }
 }
 
 
 /* Responsive Design: Stack bills on smaller screens */
-@media (max-width: 768px) {
-.bill-row {
-  grid-template-columns: 1fr; /* Stack bills on small screens */
+@media (max-width: 1024px) {
+  .bill-row {
+    grid-template-columns: repeat(2, 1fr); /* 2 bills per row for medium screens */
+  }
+
+  .bill-container {
+    width: 100%; /* Make each bill take full width on medium screens */
+    margin-left: 0; /* Adjust alignment */
+  }
 }
 
-.bill-container {
-  width: 100%; /* Make each bill take full width on smaller screens */
-  margin-left: 0; /* Adjust alignment */
-}
+/* Responsive Design: Stack bills on smaller screens */
+@media (max-width: 768px) {
+  .bill-row {
+    grid-template-columns: 1fr; /* Stack bills on small screens */
+  }
+
+  .bill-container {
+    width: 100%; /* Make each bill take full width on smaller screens */
+    margin-left: 0; /* Adjust alignment */
+  }
 }

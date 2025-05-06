@@ -21,16 +21,20 @@ const ViewBill = () => {
     fetchBill();
   }, [orderId, navigate]);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   if (!bill) return <div className="bill-container">Loading bill...</div>;
 
   return (
     <div className="view-bill-page">
       {/* Button moved here */}
-      <button onClick={() => navigate("/admin/viewOrders")} className="back-button" style={{marginLeft:"280px"}}>
+      <button onClick={() => navigate("/admin/viewOrders")} className="back-button" style={{ marginLeft: "280px" }}>
         Back to Orders
       </button>
 
-      <div className="bill-container single-bill">
+      <div className="bill-container-single-bill">
         <h2 className="center-text">FOODIES KITCHEN</h2>
         <p className="center-text">FOODIES KITCHEN RESTAURANT</p>
         <p className="center-text">KAKDE PLAZA, E BUILDING, KAKDE CITY</p>
@@ -40,6 +44,7 @@ const ViewBill = () => {
         <hr />
         <p className="center-text"><strong>TAX INVOICE</strong></p>
         <p>INV No.: ORD-{bill.orderId}</p>
+        <p>Table No.: {bill.tableId}</p> {/* Table No. added here */}
         <p>Date: {new Date().toLocaleDateString()} | Time: {new Date().toLocaleTimeString()}</p>
         <p>Bill No.: {bill.billId}</p>
         <hr />
@@ -77,6 +82,7 @@ const ViewBill = () => {
         <h3>Grand Total (Rs.): ₹{bill.grandTotal.toFixed(0)}</h3>
         <p className="center-text">THANK YOU...!! VISIT AGAIN</p>
         <p className="center-text">** Powered By ABC Softwares **</p>
+        <button onClick={handlePrint} className="print-bill-btn" style={{ marginLeft: "10px" }}>Print Bill</button>
       </div>
     </div>
   );
