@@ -30,7 +30,7 @@ const ViewStaffBill = () => {
         Back to Orders
       </button>
 
-      <div className="bill-container">
+      <div className="staff-bill-container">
         <h2 className="center-text">FOODIES KITCHEN</h2>
         <p className="center-text">FOODIES KITCHEN RESTAURANT</p>
         <p className="center-text">KAKDE PLAZA, E BUILDING, KAKDE CITY</p>
@@ -42,6 +42,7 @@ const ViewStaffBill = () => {
         <p>INV No.: ORD-{bill.orderId}</p>
         <p>Date: {new Date().toLocaleDateString()} | Time: {new Date().toLocaleTimeString()}</p>
         <p>Bill No.: {bill.billId}</p>
+        <p>Table No.: {bill.tableId}</p> {/* Added Table Number */}
         <hr />
         <table className="item-table">
           <thead>

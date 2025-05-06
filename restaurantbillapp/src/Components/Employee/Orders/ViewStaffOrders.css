@@ -1,7 +1,9 @@
 .staff-orders-wrapper {
   padding: 20px;
   background-color: #f8f9fa;
-  margin-left: 300px;
+  margin-left: 260px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Heading */
@@ -11,7 +13,7 @@
   margin-bottom: 20px;
 }
 
-/* Side-by-side layout */
+/* Layout */
 .staff-orders-table-layout {
   display: flex;
   gap: 40px;
@@ -19,7 +21,7 @@
   flex-wrap: wrap;
 }
 
-/* Each section: Pending or Completed */
+/* Section */
 .staff-orders-section {
   flex: 1;
   min-width: 45%;
@@ -34,7 +36,7 @@
 
 .staff-order-cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
 
@@ -93,13 +95,30 @@
   margin-top: 20px;
 }
 
-/* ----------------- */
-/* RESPONSIVE STYLES */
-/* ----------------- */
-@media (max-width: 768px) {
+/* Active tab button */
+button.active-tab {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .staff-order-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .staff-orders-wrapper {
+    margin-left: 0;
+    padding: 10px;
+  }
+
   .staff-orders-table-layout {
     flex-direction: column;
     align-items: center;
+    gap: 30px;
   }
 
   .staff-orders-section {
@@ -108,6 +127,12 @@
   }
 
   .staff-order-cards-grid {
-    grid-template-columns: 1fr; /* 1 card per row on small screens */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .staff-order-cards-grid {
+    grid-template-columns: 1fr;
   }
 }

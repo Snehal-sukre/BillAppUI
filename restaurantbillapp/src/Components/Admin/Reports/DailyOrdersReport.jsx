@@ -3,7 +3,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from "recharts";
 import "./Reports.css";
 
@@ -11,7 +18,8 @@ const DailyOrdersReport = () => {
   const [reportData, setReportData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/getDailyOrders")
+    axios
+      .get("http://localhost:8080/getDailyOrders")
       .then((response) => {
         setReportData(response.data);
       })
@@ -25,18 +33,35 @@ const DailyOrdersReport = () => {
       <h2 className="report-title">📊 Daily Orders Report</h2>
 
       <div className="chart-wrapper">
-        <ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={400}>
           <BarChart
             data={reportData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
+            margin={{ top: 20, right: 40, left: 20, bottom: 10 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="orderDate" />
-            <YAxis />
+            
+            {/* Left Y-axis for total orders */}
+            <YAxis yAxisId="left" />
+            
+            {/* Right Y-axis for total amount */}
+            <YAxis yAxisId="right" orientation="right" />
+
             <Tooltip />
             <Legend />
-            <Bar dataKey="totalOrders" fill="green" name="Total Orders" />
-            <Bar dataKey="totalAmount" fill="#ff4d00" name="Total Amount (₹)" />
+
+            <Bar
+              yAxisId="left"
+              dataKey="totalOrders"
+              fill="#1E9600"
+              name="Total Orders"
+            />
+            <Bar
+              yAxisId="right"
+              dataKey="totalAmount"
+              fill="#ff4d00"
+              name="Total Amount (₹)"
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>

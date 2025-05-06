@@ -72,9 +72,9 @@ const EmployeeDashboard = () => {
 
         {/* Invoice */}
         <li>
-          <NavLink to="/staff/bill" className="menu-item">
-            <FaFileInvoiceDollar className="menu-icon" />
-            Bill
+          <NavLink to="/staff/reports" className="menu-item">
+            <FaChartBar className="menu-icon" />
+            Reports
           </NavLink>
         </li>
       </ul>

@@ -7,6 +7,7 @@ const ViewOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedView, setSelectedView] = useState('pending'); // New state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,95 +52,111 @@ const ViewOrders = () => {
 
   const handleGenerateBill = (orderId) => {
     navigate(`/admin/generateBill/${orderId}`);
-};
+  };
 
   const handleViewBill = (orderId) => {
     navigate(`/admin/viewBill/${orderId}`);
   };
-  
 
   return (
     <div className="admin-orders-container">
-      <h2>All Orders</h2>
+
+      {/* Buttons for toggling views */}
+      <div className="order-view-buttons">
+        <button
+          className={selectedView === 'pending' ? 'active-view-btn' : ''}
+          onClick={() => setSelectedView('pending')}
+        >
+          View Pending Orders
+        </button>
+        <button
+          className={selectedView === 'completed' ? 'active-view-btn' : ''}
+          onClick={() => setSelectedView('completed')}
+        >
+          View Completed Orders
+        </button>
+      </div>
+
       <div className="status-columns">
-        {/* Pending Orders */}
-        <div className="status-column">
-          <h3>Pending Orders</h3>
-          <div className="orders-grid">
-            {pendingOrders.map(order => (
-              <div key={order.orderId} className="order-card">
-                <h4>Order ID: {order.orderId}</h4>
-                <p>Table ID: {order.tableId}</p>
-                <p>Staff Name: {order.staffName}</p>
-                <p>Order Date: {new Date(order.ordDate).toLocaleDateString()}</p>
-                <p>Status: {order.orderStatus}</p>
-                <table className="items-table">
-                  <thead>
-                    <tr>
-                      <th>Item Name</th>
-                      <th>Quantity</th>
-                      <th>Rate (₹)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {order.items.map((item, index) => (
-                      <tr key={index}>
-                        <td>{item.itemName}</td>
-                        <td>{item.quantity}</td>
-                        <td>{item.price}</td>
+        {selectedView === 'pending' && (
+          <div className="status-column">
+            <h3>Pending Orders</h3>
+            <div className="orders-grid">
+              {pendingOrders.map(order => (
+                <div key={order.orderId} className="order-card">
+                  <h4>Order ID: {order.orderId}</h4>
+                  <p>Table ID: {order.tableId}</p>
+                  <p>Staff Name: {order.staffName}</p>
+                  <p>Order Date: {new Date(order.ordDate).toLocaleDateString()}</p>
+                  <p>Status: {order.orderStatus}</p>
+                  <table className="items-table">
+                    <thead>
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Rate (₹)</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <button
+                    </thead>
+                    <tbody>
+                      {order.items.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.itemName}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <button
                     onClick={() => handleGenerateBill(order.orderId)}
                     className="generate-bill-btn"
-                >
-                Generate Bill
-                </button>
-              </div>
-            ))}
+                  >
+                    Generate Bill
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Completed Orders */}
-        <div className="status-column">
-          <h3>Completed Orders</h3>
-          <div className="orders-grid">
-            {completedOrders.map(order => (
-              <div key={order.orderId} className="order-card">
-                <h4>Order ID: {order.orderId}</h4>
-                <p>Table ID: {order.tableId}</p>
-                <p>Staff Name: {order.staffName}</p>
-                <p>Order Date: {new Date(order.ordDate).toLocaleDateString()}</p>
-                <p>Status: {order.orderStatus}</p>
-                <table className="items-table">
-                  <thead>
-                    <tr>
-                      <th>Item Name</th>
-                      <th>Quantity</th>
-                      <th>Rate (₹)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {order.items.map((item, index) => (
-                      <tr key={index}>
-                        <td>{item.itemName}</td>
-                        <td>{item.quantity}</td>
-                        <td>{item.price}</td>
+        {selectedView === 'completed' && (
+          <div className="status-column">
+            <h3>Completed Orders</h3>
+            <div className="orders-grid">
+              {completedOrders.map(order => (
+                <div key={order.orderId} className="order-card">
+                  <h4>Order ID: {order.orderId}</h4>
+                  <p>Table ID: {order.tableId}</p>
+                  <p>Staff Name: {order.staffName}</p>
+                  <p>Order Date: {new Date(order.ordDate).toLocaleDateString()}</p>
+                  <p>Status: {order.orderStatus}</p>
+                  <table className="items-table">
+                    <thead>
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Rate (₹)</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <button onClick={() => handleViewBill(order.orderId)}
-                  className="generate-bill-btn">
-                 View Bill
-                </button>
-
-              </div>
-            ))}
+                    </thead>
+                    <tbody>
+                      {order.items.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.itemName}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <button onClick={() => handleViewBill(order.orderId)}
+                    className="generate-bill-btn">
+                    View Bill
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
