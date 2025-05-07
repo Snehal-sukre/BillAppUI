@@ -1,6 +1,6 @@
 /* Existing Bill Container styles */
 .all-bills-page{
-  margin-left: 300px;
+  margin-left: 260px;
 }
 
 .generate-bill-container
@@ -129,10 +129,16 @@ button:hover {
 /* New class to make a grid layout for displaying 3 bills per row */
 .bill-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 bills per row */
+  grid-template-columns: repeat(4, 1fr); /* 3 bills per row */
   gap: 20px; /* Adds space between the bills */
   margin: 20px;
   padding: 10px;
+  align-items: stretch; 
+}
+.bill-row > div {
+  width: 100%; /* Takes full grid cell */
+  height: 100%; /* Ensures equal height */
+  box-sizing: border-box;
 }
 
 /* Button to print bill */
@@ -153,6 +159,7 @@ button:hover {
   .bill-container-single-bill, .bill-container-single-bill *{
     visibility: visible;
   }
+  
 
   .bill-container-single-bill
   {
@@ -195,8 +202,13 @@ button:hover {
 
   .bill-container {
     width: 100%; /* Make each bill take full width on medium screens */
-    margin-left: 0; /* Adjust alignment */
+    margin-left: 20px; /* Adjust alignment */
   }
+
+  .all-bills-page {
+    margin-left: 0;
+  }
+
 }
 
 /* Responsive Design: Stack bills on smaller screens */
@@ -207,6 +219,16 @@ button:hover {
 
   .bill-container {
     width: 100%; /* Make each bill take full width on smaller screens */
-    margin-left: 0; /* Adjust alignment */
+    margin-left: 20px; /* Adjust alignment */
   }
+
+  .all-bills-page {
+    margin-left: 0;
+  }
+
+  .back-button
+  {
+    margin-top: 30px;
+  }
+  
 }

@@ -89,3 +89,42 @@ ul li
   color: #ff3c00;
   font-weight: 500;
 }
+
+/* Add this for hamburger icon styling */
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+
+/* Sidebar default hidden on small screens */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    overflow-y: auto;
+  }
+
+  .admin-header
+  {
+    margin-top: 40px;
+
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .hamburger {
+    display: block;
+    color: #333;
+  }
+}
