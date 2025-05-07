@@ -20,6 +20,12 @@
     overflow: hidden;
     padding-left: 40px;
     padding-right: 40px;
+    margin-left: 500px;
+  }
+  .menu-container
+  {
+    margin-left: 100px;
+    width: 100%;
   }
   
   h2 {
@@ -241,4 +247,129 @@
     background-color: #ff3c00;
     color: white;
   }
-  
+
+ /* For tablets (width ≤ 1024px) */
+@media (max-width: 1024px) {
+  .form-wrapper {
+    padding-left: 0;
+    justify-content: center;
+  }
+
+  .container {
+    margin-left: 0;
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .menu-container {
+    margin-left: 0;
+  }
+
+  .view-menu-wrapper {
+    left: 0;
+    padding: 30px 10px;
+  }
+
+  .view-menu-table-wrapper {
+    padding: 15px;
+    max-width: 95%;
+  }
+}
+
+/* For mobile devices (width ≤ 768px) */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 20px;
+  }
+
+  .form-wrapper {
+    padding: 10px;
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+    margin-left: 0;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .view-menu-wrapper {
+    padding: 20px 10px;
+    align-items: stretch;
+  }
+
+  .view-menu-searchbar input {
+    font-size: 14px;
+    padding-left: 36px;
+  }
+
+  .view-menu-searchbar .search-icon {
+    left: 10px;
+    font-size: 16px;
+  }
+
+  .view-menu-table-wrapper {
+    padding: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .view-menu-table th,
+  .view-menu-table td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .pagination-controls button {
+    padding: 5px 8px;
+    font-size: 13px;
+  }
+
+  button.submit-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .message,
+  .error-msg {
+    font-size: 13px;
+  }
+}
+
+/* For very small devices (≤ 480px) */
+@media (max-width: 480px) {
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 12px;
+  }
+
+  .view-menu-table th,
+  .view-menu-table td {
+    font-size: 12px;
+  }
+
+  .view-menu-searchbar
+  {
+    width: 250px;
+    margin-left: 60px;
+  }
+  .pagination-controls button {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}

@@ -53,13 +53,13 @@ const DailyOrdersReport = () => {
             <Bar
               yAxisId="left"
               dataKey="totalOrders"
-              fill="#1E9600"
+              fill="#5D76A9"
               name="Total Orders"
             />
             <Bar
               yAxisId="right"
               dataKey="totalAmount"
-              fill="#ff4d00"
+              fill="#1d1160"
               name="Total Amount (₹)"
             />
           </BarChart>

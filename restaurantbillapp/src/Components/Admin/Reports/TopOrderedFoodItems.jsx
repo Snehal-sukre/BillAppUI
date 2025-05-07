@@ -36,7 +36,7 @@ const TopOrderedFoodItems = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="totalQty" fill="#ff4d00" name="Quantity Ordered" />
+          <Bar dataKey="totalQty" fill="#1d1160" name="Quantity Ordered" />
         </BarChart>
       </ResponsiveContainer>
 

@@ -9,6 +9,7 @@ import {
   FaChartBar,
   FaChair,
 } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdFastfood } from "react-icons/md";
 import "./AdminDashboard.css";
@@ -21,6 +22,10 @@ const AdminDashboard = () => {
     dinning: false,
     orders: false,
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   const toggleDropdown = (key) => {
     setDropdownOpen({
@@ -34,7 +39,11 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="admin-sidebar">
+    <div className="admin-dashboard">
+      <button className="hamburger" onClick={toggleSidebar}>
+    <FaBars />
+  </button>
+  <div className={`admin-sidebar ${sidebarOpen ? "open" : ""}`}>
       <ul className="sidebar-menu">
         <li className="sidebar-logo">
           <FaUtensils className="logo-icon" size="2em" />
@@ -184,6 +193,7 @@ const AdminDashboard = () => {
 </li>
 
       </ul>
+    </div>
     </div>
   );
 };

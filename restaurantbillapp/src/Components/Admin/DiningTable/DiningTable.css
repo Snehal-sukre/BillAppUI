@@ -241,7 +241,7 @@
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
-    background-color: #ddd;
+    background-color: #979696;
     cursor: pointer;
     transition: background 0.3s ease;
   }
@@ -255,3 +255,142 @@
     background-color: #ff3c00;
     color: white;
   }
+
+/* ---------- Responsive Styles ---------- */
+
+/* Tablets (max-width: 991px) */
+@media screen and (max-width: 1024px) {
+  .form-container {
+    margin-top: 100px;
+    padding: 20px 15px;
+  }
+
+  .add-table-wrapper,
+  .view-table-wrapper {
+    left: 0;
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .form-container,
+  .view-dining-table-wrapper {
+    padding: 30px 20px;
+    width: 100%;
+  }
+
+  .view-table-searchbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .view-table-searchbar input {
+    padding-left: 12px;
+  }
+
+  .view-table-searchbar .search-icon {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-bottom: -10px;
+  }
+
+  .view-dining-table th,
+  .view-dining-table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Devices (max-width: 767px) */
+@media screen and (max-width: 767px) {
+  .form-container {
+    margin-top: 100px;
+    padding: 20px 15px;
+  }
+
+  .view-dining-table-wrapper {
+    padding: 20px 15px;
+  }
+
+  .view-dining-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .view-dining-table th,
+  .view-dining-table td {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .submit-btn,
+  .availability-btn,
+  .pagination-controls button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .pagination-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .view-table-icon-btn {
+    font-size: 16px;
+    padding: 4px;
+  }
+}
+
+/* Small Devices (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .form-container {
+    margin-top: 100px;
+    padding: 20px 15px;
+  }
+
+  .form-container,
+  .view-dining-table-wrapper {
+    padding: 15px 10px;
+  }
+
+  label,
+  input {
+    font-size: 13px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .view-table-icon-btn {
+    margin: 0 2px;
+  }
+
+  .view-table-searchbar
+  {
+    width: 250px;
+    margin-left: 50px;
+  }
+
+  .view-table-searchbar input {
+    font-size: 12px;
+  }
+
+  .message,
+  .error-msg {
+    font-size: 13px;
+  }
+}
+
+  

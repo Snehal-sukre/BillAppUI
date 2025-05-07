@@ -125,10 +125,75 @@
   color: white;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  background-color: #c7c1c1;
+  cursor: pointer;
+  color: black;
+  border-radius: 4px;
+}
+
+.pagination .active-page {
+  background-color: rgb(3, 139, 3);
+  color: black;
+  font-weight: bold;
+}
+
 
 /* Responsive behavior */
+@media (max-width: 1024px) {
+  .admin-orders-container {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .status-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
-  .orders-grid {
-    grid-template-columns: 1fr;
+  .admin-orders-container {
+    padding: 10px;
+  }
+
+  .generate-bill-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .items-table th,
+  .items-table td {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-card {
+    padding: 10px;
+    min-height: auto;
+  }
+
+  .order-view-buttons {
+    flex-direction: column;
+    margin-top: 50px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: center;
   }
 }

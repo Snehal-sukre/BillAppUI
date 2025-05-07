@@ -3,6 +3,7 @@ import MenuService from "./MenuService";
 import "./ViewMenus.css";
 import { useNavigate, useParams } from "react-router-dom";
 import OrderPage from "../Orders/OrderPage";
+import { FaSearch } from "react-icons/fa";
 
 const ViewMenus = () => {
   const [menuData, setMenuData] = useState({});
@@ -17,41 +18,10 @@ const ViewMenus = () => {
   const [orderStatus, setOrderStatus] = useState("Preparing");
   const navigate = useNavigate();
   const { tableId: urlTableId } = useParams();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [errorMsg, setErrorMsg] = useState({ message: "", statusCode: 0 });
 
   const tableId = localStorage.getItem("selectedTableId") || urlTableId;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const categoriesRes = await MenuService.getCategories();
-        const categoryData = categoriesRes.data;
-        if (categoryData && Array.isArray(categoryData)) {
-          const categoryNames = ["All", ...categoryData.map((cat) => cat.name)];
-          setCategories(categoryNames);
-        } else {
-          throw new Error(`Failed to load categories`);
-        }
-
-        const menuRes = await MenuService.getMenus();
-        const menus = menuRes.data;
-        if (menus && Array.isArray(menus)) {
-          const groupedMenus = groupByCategory(menus);
-          setMenuData(groupedMenus);
-        } else {
-          throw new Error(`Failed to load menus`);
-        }
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError("Failed to load menu items: " + err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const groupByCategory = (menus) => {
     return menus.reduce((groupedObj, menu) => {
@@ -63,6 +33,57 @@ const ViewMenus = () => {
       return groupedObj;
     }, {});
   };
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const categoriesRes = await MenuService.getCategories();
+      const categoryData = categoriesRes.data;
+      if (categoryData && Array.isArray(categoryData)) {
+        const categoryNames = ["All", ...categoryData.map((cat) => cat.name)];
+        setCategories(categoryNames);
+      } else {
+        throw new Error(`Failed to load categories`);
+      }
+
+      const menuRes = await MenuService.getMenus();
+      const menus = menuRes.data;
+      if (menus && Array.isArray(menus)) {
+        const groupedMenus = groupByCategory(menus);
+        setMenuData(groupedMenus);
+      } else {
+        throw new Error(`Failed to load menus`);
+      }
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Failed to load menu items: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      fetchData();
+    } else {
+      MenuService.customizeSearch(searchTerm)
+        .then((res) => {
+          const grouped = groupByCategory(res.data);
+          setMenuData(grouped);
+        })
+        .catch((err) =>
+          setErrorMsg(err.response?.data || {
+            message: "Search Error",
+            statusCode: 400,
+          })
+        );
+    }
+  }, [searchTerm]);
 
   const handleAddToOrder = (item) => {
     setActiveItem({
@@ -144,6 +165,15 @@ const ViewMenus = () => {
 
         <section className="view-menu-section" id="menu">
           <div className="view-menu-container">
+            <div className="view-menu-searchbar" style={{marginLeft:"70px"}}>
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search menu..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
             <h2 className="view-menu-title">
               Our <span>Menu</span>
             </h2>
