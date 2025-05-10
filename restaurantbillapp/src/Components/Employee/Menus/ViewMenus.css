@@ -382,3 +382,143 @@
   }
 }
 
+/* === Responsive Layout Enhancements === */
+
+/* Larger Screens (1200px and above) */
+@media (min-width: 1200px) {
+  .menu-order {
+    margin-left: 250px;
+    gap: 30px;
+  }
+
+  .view-menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+  }
+
+  .order-form-container {
+    right: 40px;
+    top: 30px;
+    width: 320px;
+  }
+}
+
+/* Medium Screens (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 993px) {
+  .menu-order {
+    flex-direction: row;
+    margin-left: 200px;
+  }
+
+  .view-menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+
+  .place-order-container {
+    max-width: 35%;
+  }
+}
+
+/* Tablets (768px to 992px) */
+@media (max-width: 992px) and (min-width: 768px) {
+  .menu-order {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .view-menu-searchbar
+{
+  margin-left: 0px;
+  width: 500px;
+}
+
+  .place-order-container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .view-menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 90%;
+  }
+
+  .order-form-container {
+    position: static;
+    width: 100%;
+    margin: 20px auto;
+  }
+  .back-btn-container
+  {
+    margin-top: 50px;
+  }
+}
+
+/* Small Devices (481px to 767px) */
+@media (max-width: 767px) and (min-width: 481px) {
+  .menu-order {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .place-order-container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .view-menu-grid {
+    grid-template-columns: 1fr;
+    max-width: 90%;
+  }
+
+  .back-btn-container
+  {
+    margin-top: 50px;
+  }
+
+  .order-form-container {
+    position: static;
+    width: 100%;
+    margin: 20px auto;
+  }
+}
+
+/* Extra Small Devices (up to 480px) */
+@media (max-width: 480px) {
+  .menu-order {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .place-order-container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .back-btn-container
+  {
+    margin-top: 50px;
+  }
+
+  .view-menu-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .view-menu-img {
+    height: 120px;
+  }
+
+  .order-form-container {
+    position: static;
+    width: 100%;
+    margin: 20px auto;
+    padding: 15px;
+  }
+}
+
+

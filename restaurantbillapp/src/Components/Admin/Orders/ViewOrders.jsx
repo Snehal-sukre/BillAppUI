@@ -73,19 +73,57 @@ const ViewOrders = () => {
     navigate(`/admin/viewBill/${orderId}`);
   };
 
-  const renderPagination = () => (
-    <div className="pagination">
-      {Array.from({ length: totalPages }, (_, index) => (
+  const renderPagination = () => {
+    const pages = [];
+    const addPage = (page) => {
+      pages.push(
         <button
-          key={index}
-          onClick={() => setCurrentPage(index + 1)}
-          className={currentPage === index + 1 ? 'active-page' : ''}
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={currentPage === page ? 'active-page' : ''}
         >
-          {index + 1}
+          {page}
         </button>
-      ))}
-    </div>
-  );
+      );
+    };
+
+    if (totalPages <= 6) {
+      for (let i = 1; i <= totalPages; i++) {
+        addPage(i);
+      }
+    } else {
+      addPage(1);
+      if (currentPage > 3) pages.push(<span key="dots1">...</span>);
+
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        addPage(i);
+      }
+
+      if (currentPage < totalPages - 2) pages.push(<span key="dots2">...</span>);
+      addPage(totalPages);
+    }
+
+    return (
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        {pages}
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+    );
+  };
 
   if (loading) return <div>Loading orders...</div>;
   if (error) return <div>Error: {error}</div>;

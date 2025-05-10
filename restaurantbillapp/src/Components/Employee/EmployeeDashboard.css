@@ -12,6 +12,21 @@
     transition: all 0.3s ease-in-out;
     overflow-y: hidden;
   }
+  .hamburger {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  .admin-sidebar.open {
+    left: 0;
+  }
+  
   ul li
   {
     list-style-type: none;
