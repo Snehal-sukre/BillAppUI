@@ -1,0 +1,53 @@
+/* StaffDailyOrders.css */
+
+.staff-daily-orders-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin-left: 350px;
+  }
+  
+  .staff-daily-orders-container h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  
+  .recharts-responsive-container {
+    width: 100% !important;
+    height: 400px !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .staff-daily-orders-container
+    {
+        margin-left: 0px;
+    }
+    .staff-daily-orders-container h3 {
+      font-size: 1.5rem;
+    }
+  
+    .recharts-responsive-container {
+      height: 300px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .staff-daily-orders-container {
+        margin-left: 0px;
+      padding: 0.5rem;
+    }
+  
+    .staff-daily-orders-container h3 {
+      font-size: 1.2rem;
+    }
+  
+    .recharts-responsive-container {
+      height: 250px !important;
+    }
+  }
+  

@@ -29,6 +29,7 @@ import ViewStaffBill from "./Components/Employee/Bill/ViewStaffBill";
 import ViewAllBills from "./Components/Admin/Bill/ViewAllBills";
 import DailyOrdersReport from "./Components/Admin/Reports/DailyOrdersReport";
 import TopOrderedFoodItems from "./Components/Admin/Reports/TopOrderedFoodItems";
+import StaffDailyOrders from "./Components/Employee/Reports/StaffDailyOrders";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
         <Route path="viewmenu/:tableid/vieworders" element={<OrderPage/>}/>
         <Route path="viewstafforders" element={<ViewStaffOrders/>}/>
         <Route path="viewStaffBill/:orderId" element={<ViewStaffBill/>}/>
+        <Route path="dailyorderscount" element={<StaffDailyOrders/>}/>
         </Route>
 
       </Routes>
